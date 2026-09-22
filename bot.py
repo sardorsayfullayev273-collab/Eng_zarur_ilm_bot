@@ -34,7 +34,19 @@ def today(): return datetime.now(TZ).date()
 def today_s(): return today().isoformat()
 def reg(u):
  c=db(); c.execute('''INSERT INTO users(id,name,active,joined_at) VALUES(?,?,1,?) ON CONFLICT(id) DO UPDATE SET name=excluded.name,active=1''',(u.id,u.full_name or 'Foydalanuvchi',datetime.now(TZ).isoformat())); c.commit(); c.close()
-def menu(): return InlineKeyboardMarkup([[InlineKeyboardButton('👦 Bolalar uchun',callback_data='aud:children'),InlineKeyboardButton('👨 Kattalar uchun',callback_data='aud:adults')],[InlineKeyboardButton('🏆 Reyting',callback_data='rating'),InlineKeyboardButton('📊 Statistikam',callback_data='stats')]])
+def menu():
+ return InlineKeyboardMarkup([
+  [InlineKeyboardButton('👦 Bolalar uchun',callback_data='aud:children'),InlineKeyboardButton('👨 Kattalar uchun',callback_data='aud:adults')],
+  [InlineKeyboardButton('📖 Bugungi hadis',callback_data='today'),InlineKeyboardButton('🔥 Statistikam',callback_data='stats')],
+  [InlineKeyboardButton('🏆 Reyting',callback_data='rating')]
+ ])
+
+def after_menu():
+ return InlineKeyboardMarkup([
+  [InlineKeyboardButton('📖 Bugungi hadis',callback_data='today'),InlineKeyboardButton('🔥 Statistikam',callback_data='stats')],
+  [InlineKeyboardButton('🏆 Reyting',callback_data='rating')],
+  [InlineKeyboardButton('🔄 Tanlovni o‘zgartirish',callback_data='change')]
+ ])
 def font(n,b=False):
  p='/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf' if b else '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
  return ImageFont.truetype(p,n) if os.path.exists(p) else ImageFont.load_default()
@@ -47,7 +59,8 @@ def wrap(d,t,f,w):
  if cur: out.append(cur)
  return out
 def card(h):
- im=Image.new('RGB',(1080,1080),(20,65,50)); d=ImageDraw.Draw(im); tf=font(58,1); bf=font(43); lf=font(37); sf=font(28)
+ im=Image.new('RGB',(1080,1080),(15,55,48)); d=ImageDraw.Draw(im); tf=font(58,1); bf=font(43); lf=font(37); sf=font(28)
+ d.rounded_rectangle((35,35,1045,1045),radius=35,outline=(245,220,150),width=4)
  d.text((60,50),'ENG ZARUR ILM',font=tf,fill=(245,220,150)); d.text((60,135),'BUGUNGI HADIS',font=font(34,1),fill='white')
  y=220
  for x in wrap(d,h['text'],bf,950): d.text((60,y),x,font=bf,fill='white'); y+=62
@@ -68,7 +81,13 @@ def kb(h):
  text=urllib.parse.quote('📖 Bugungi hadis:\n\n'+h['text'])
  return InlineKeyboardMarkup([[InlineKeyboardButton('✅ Bilib oldim',callback_data=f"learn:{h['id']}"),InlineKeyboardButton('📤 Ulashish',url='https://t.me/share/url?text='+text)]])
 
-async def start(u,ctx): reg(u.effective_user); await u.message.reply_text('Assalomu alaykum! 🌙\n\n«Eng zarur ilm» botiga xush kelibsiz.\nHar kuni 06:00 da hadis olish uchun tanlang:',reply_markup=menu())
+async def start(u,ctx):
+ reg(u.effective_user)
+ await u.message.reply_text(
+  '🌙 <b>ENG ZARUR ILM</b>\n\n'
+  'Har kuni siz uchun foydali hadis, qisqa hayotiy saboq va ilmni mustahkamlash imkoniyati.\n\n'
+  '<b>Kim uchun hadislar kerak?</b>',
+  reply_markup=menu(),parse_mode='HTML')
 async def rating_cmd(u,ctx): reg(u.effective_user); await rating(u.effective_chat.id,ctx)
 async def rating(chat,ctx):
  c=db(); rs=c.execute('SELECT u.name,COUNT(l.day) n FROM users u LEFT JOIN learned l ON l.uid=u.id WHERE u.active=1 GROUP BY u.id ORDER BY n DESC,u.name LIMIT 10').fetchall(); c.close()
@@ -79,11 +98,25 @@ async def stats(chat,uid,ctx):
 async def cb(u,ctx):
  q=u.callback_query; await q.answer(); reg(q.from_user)
  if q.data.startswith('aud:'):
-  a=q.data.split(':')[1]; c=db(); c.execute('UPDATE users SET audience=?,active=1 WHERE id=?',(a,q.from_user.id)); c.commit(); c.close(); await q.edit_message_text(('👦 Bolalar' if a=='children' else '👨 Kattalar')+' uchun hadislar tanlandi.\n\nHar kuni 06:00 da hadis, 12:00 va 20:00 da eslatma keladi.\n\n🏆 /rating\n📊 /stats')
+  a=q.data.split(':')[1]; c=db(); c.execute('UPDATE users SET audience=?,active=1 WHERE id=?',(a,q.from_user.id)); c.commit(); c.close(); await q.edit_message_text(('👦 <b>Bolalar</b>' if a=='children' else '👨 <b>Kattalar</b>')+' uchun shaxsiy oqim sozlandi.\n\n📖 Hadislar avtomatik keladi.\n🌱 Eslatmalar esa hadisni o‘rganishni davom ettirishga yordam beradi.\n\nPastdagi menyudan kerakli bo‘limni tanlang.',reply_markup=after_menu(),parse_mode='HTML')
  elif q.data.startswith('learn:'):
   hid=int(q.data.split(':')[1]); c=db(); c.execute('INSERT OR IGNORE INTO learned(uid,day,hadith) VALUES(?,?,?)',(q.from_user.id,today_s(),hid)); c.commit(); c.close(); await q.edit_message_reply_markup(reply_markup=None); await q.message.reply_text(f'🌱 Ma shaa Alloh! Bugungi hadis o‘rganildi.\n🔥 Davomiylik: {streak(q.from_user.id)} kun')
  elif q.data=='rating': await rating(q.message.chat_id,ctx)
  elif q.data=='stats': await stats(q.message.chat_id,q.from_user.id,ctx)
+ elif q.data=='today': await send_one(q.message.chat_id,q.from_user.id,ctx)
+ elif q.data=='change': await q.edit_message_text('👤 Kim uchun hadislar kerak?',reply_markup=menu())
+
+async def send_one(chat_id, uid, ctx):
+ c=db(); row=c.execute('SELECT audience FROM users WHERE id=?',(uid,)).fetchone(); c.close()
+ if not row or not row['audience']:
+  await ctx.bot.send_message(chat_id,'Avval 👦 Bolalar yoki 👨 Kattalar uchun variantini tanlang.',reply_markup=menu())
+  return
+ h=choose(row['audience'])
+ if not h: return
+ p=card(h); cap=f'📖 <b>BUGUNGI HADIS</b>\n\n{h["text"]}\n\n💡 <b>Hayotiy saboq:</b> {h["lesson"]}\n\n📚 Manba: {h["source"]} №{h["no"]} | {h["grade"]}'
+ try:
+  with open(p,'rb') as f: await ctx.bot.send_photo(chat_id,f,caption=cap,reply_markup=kb(h),parse_mode='HTML')
+ except Exception: pass
 
 async def daily(ctx):
  c=db(); us=c.execute('SELECT id,audience FROM users WHERE active=1 AND audience IS NOT NULL').fetchall(); c.close()
@@ -99,12 +132,21 @@ async def remind(ctx):
  c=db(); us=c.execute('SELECT id FROM users WHERE active=1 AND audience IS NOT NULL').fetchall(); c.close()
  for u in us:
   if learned_today(u['id']): continue
-  try: await ctx.bot.send_message(u['id'],'🌱 Bugungi hadisni hali «Bilib oldim» deb belgilamadingiz.\n\nHadisni qayta o‘qib, bugungi ilmni mustahkamlang. 🤲')
+  try: await ctx.bot.send_message(u['id'],'🌱 <b>Ilmni davom ettiring!</b>\n\nBugungi hadisni yana bir bor o‘qib, <b>«Bilib oldim»</b> tugmasini bosing.\n\nHar bir o‘rganilgan hadis — foydali bir qadam. 🤲')
   except Exception:
    c2=db(); c2.execute('UPDATE users SET active=0 WHERE id=?',(u['id'],)); c2.commit(); c2.close()
+async def test_hadith(u,ctx):
+ if u.effective_user.id not in ADMIN_IDS:
+  return await u.message.reply_text('⛔ Bu bo‘lim faqat admin uchun.')
+ await send_one(u.effective_chat.id,u.effective_user.id,ctx)
+
+async def help_cmd(u,ctx):
+ reg(u.effective_user)
+ await u.message.reply_text('ℹ️ <b>ENG ZARUR ILM</b>\n\n📖 Hadis — kunlik foydali bilim\n🔥 Statistika — shaxsiy davomiylik\n🏆 Reyting — faol o‘rganuvchilar\n👤 Tanlov — bolalar yoki kattalar uchun oqim\n\nHadisni o‘qib, <b>«Bilib oldim»</b> tugmasini bosib boring.',reply_markup=after_menu(),parse_mode='HTML')
+
 async def admin(u,ctx):
  if u.effective_user.id not in ADMIN_IDS: return await u.message.reply_text('⛔ Bu bo‘lim faqat admin uchun.')
- c=db(); n=c.execute('SELECT COUNT(*) n FROM users WHERE active=1').fetchone()['n']; l=c.execute('SELECT COUNT(*) n FROM learned').fetchone()['n']; c.close(); await u.message.reply_text(f'👑 ADMIN PANEL\n\n👥 Faol foydalanuvchilar: {n}\n📖 Bajarilgan hadislar: {l}\n\n📢 /broadcast — e’lon yuborish')
+ c=db(); n=c.execute('SELECT COUNT(*) n FROM users WHERE active=1').fetchone()['n']; l=c.execute('SELECT COUNT(*) n FROM learned').fetchone()['n']; c.close(); await u.message.reply_text(f'👑 <b>ADMIN PANEL</b>\n\n👥 Faol foydalanuvchilar: {n}\n📖 Bajarilgan hadislar: {l}\n\n🧪 /test_hadis — darhol test hadis\n📢 /broadcast — e’lon yuborish',parse_mode='HTML')
 async def broadcast(u,ctx):
  if u.effective_user.id not in ADMIN_IDS: return await u.message.reply_text('⛔ Bu bo‘lim faqat admin uchun.')
  ctx.user_data['broadcast']=True; await u.message.reply_text('📢 E’lon matni yoki rasmini yuboring. Rasm yuborsangiz caption ham jo‘natiladi.')
@@ -125,7 +167,7 @@ def health_server(): threading.Thread(target=lambda: HTTPServer(('0.0.0.0',PORT)
 def main():
  if not TOKEN: raise RuntimeError('TELEGRAM_BOT_TOKEN topilmadi')
  init_db(); health_server(); app=Application.builder().token(TOKEN).build()
- app.add_handler(CommandHandler('start',start)); app.add_handler(CommandHandler('rating',rating_cmd)); app.add_handler(CommandHandler('stats',stats_cmd)); app.add_handler(CommandHandler('admin',admin)); app.add_handler(CommandHandler('broadcast',broadcast)); app.add_handler(CallbackQueryHandler(cb)); app.add_handler(MessageHandler(filters.ALL & ~filters.COMMAND,admin_msg))
+ app.add_handler(CommandHandler('start',start)); app.add_handler(CommandHandler('rating',rating_cmd)); app.add_handler(CommandHandler('stats',stats_cmd)); app.add_handler(CommandHandler('admin',admin)); app.add_handler(CommandHandler('broadcast',broadcast)); app.add_handler(CommandHandler('test_hadis',test_hadith)); app.add_handler(CommandHandler('help',help_cmd)); app.add_handler(CallbackQueryHandler(cb)); app.add_handler(MessageHandler(filters.ALL & ~filters.COMMAND,admin_msg))
  app.job_queue.run_daily(daily,time=time(6,0,tzinfo=TZ),name='daily_hadith'); app.job_queue.run_daily(remind,time=time(12,0,tzinfo=TZ),name='remind_noon'); app.job_queue.run_daily(remind,time=time(20,0,tzinfo=TZ),name='remind_evening')
  print('Eng_zarur_ilm_bot ishga tushdi'); print('Timezone:',TZ,'Port:',PORT); app.run_polling(drop_pending_updates=True)
 if __name__=='__main__': main()
