@@ -28,9 +28,9 @@ DB_PATH = os.getenv("DB_PATH", "bot.db")
 TEMPLATE = "premium_template.png"
 
 # Fonts available on Render Linux images.
-FONT_SERIF = os.path.join("fonts", "DejaVuSerif.ttf")
-FONT_SERIF_BOLD = os.path.join("fonts", "DejaVuSerif-Bold.ttf")
-FONT_ARABIC = os.path.join("fonts", "NotoNaskhArabic-Bold.ttf")
+FONT_SERIF = "DejaVuSerif.ttf"
+FONT_SERIF_BOLD = "DejaVuSerif-Bold.ttf"
+FONT_ARABIC = "NotoNaskhArabic-Bold.ttf"
 
 GREEN = (8, 57, 46)
 GOLD = (224, 183, 84)
