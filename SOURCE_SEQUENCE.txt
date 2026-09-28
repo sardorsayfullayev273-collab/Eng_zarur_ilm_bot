@@ -1,0 +1,22 @@
+ENG ZARUR ILM — MANBA TARTIBI
+
+1) 101-hadis.pdf
+   - PDF boshida 1-hadisdan oldin bitta kirish rivoyati bor.
+   - Keyin PDFda 1-hadisdan 100-hadisgacha raqamlangan hadislar mavjud.
+   - Bot ularni random qilmaydi.
+
+2) 101-hadis.pdf tugagach, keyingi baza quyidagi tartibda kiritiladi:
+   Sahihi Buxoriy
+   Sahihi Muslim
+   Sunanut-Termiziy
+   Sunani Abu Doud
+   Sunani Nasoiy
+   Sunani Ibn Moja
+   Kitobul-osor
+
+Ahlus-sunna val-jamoa hadis kitoblari sahifasi:
+https://ahlussunnawaljamoa.wordpress.com/kitoblar/hadis-kitoblari/
+
+MUHIM:
+Bu versiyaga hali yuqoridagi keyingi kitoblarning matnlari avtomatik qo'shilmagan.
+Tasdiqlanmagan hadis matni botga kiritilmaydi. 101-hadis.pdf dagi baza alohida saqlangan.

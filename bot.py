@@ -1,257 +1,379 @@
-import os, io, json, sqlite3, threading, logging, asyncio
-from datetime import datetime, time, timedelta
-from zoneinfo import ZoneInfo
+import os, sqlite3, threading, urllib.parse, calendar
+from datetime import datetime, date, timedelta, time
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from urllib.parse import quote
+from zoneinfo import ZoneInfo
 from pathlib import Path
 
 from dotenv import load_dotenv
 from PIL import Image, ImageDraw, ImageFont
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
-from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes, MessageHandler, filters
+from telegram.ext import Application, CommandHandler, CallbackQueryHandler, MessageHandler, ContextTypes, filters
 
 load_dotenv()
-logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
-log = logging.getLogger(__name__)
-
 BASE = Path(__file__).resolve().parent
 TOKEN = os.getenv('TELEGRAM_BOT_TOKEN', '').strip()
 ADMIN_IDS = {int(x.strip()) for x in os.getenv('ADMIN_IDS', '').split(',') if x.strip().isdigit()}
-TIMEZONE = ZoneInfo(os.getenv('TIMEZONE', 'Asia/Tashkent'))
+TZ = ZoneInfo(os.getenv('TIMEZONE', 'Asia/Tashkent'))
+DB = os.getenv('DB_PATH', str(BASE / 'eng_zarur_ilm.db'))
+PORT = int(os.getenv('PORT', '10000'))
 BOT_USERNAME = os.getenv('BOT_USERNAME', 'Eng_zarur_ilm_bot').lstrip('@')
-DB_PATH = os.getenv('DB_PATH', str(BASE / 'bot.db'))
-TEMPLATE = BASE / 'premium_template.png'
-FONT_SERIF = BASE / 'DejaVuSerif.ttf'
-FONT_SERIF_BOLD = BASE / 'DejaVuSerif-Bold.ttf'
-FONT_ARABIC = BASE / 'NotoNaskhArabic-Bold.ttf'
+SOURCE_URL = 'https://ahlussunnawaljamoa.wordpress.com/kitoblar/hadis-kitoblari/'
 
-GREEN=(8,57,46); GOLD=(224,183,84); TEXT=(18,55,48); SOFT=(239,242,222)
+HADITHS = __import__('json').loads((BASE / 'hadiths.json').read_text(encoding='utf-8'))
+HADITHS = sorted(HADITHS, key=lambda x: x['id'])
 
-with open(BASE / 'hadiths.json', 'r', encoding='utf-8') as f:
-    HADITHS = sorted(json.load(f), key=lambda x:int(x['id']))
-HADITH_BY_ID = {int(x['id']):x for x in HADITHS}
+# -------------------- DATABASE --------------------
+def conn():
+    c = sqlite3.connect(DB, timeout=10)
+    c.row_factory = sqlite3.Row
+    return c
 
-CARD_CACHE = {}
-CARD_LOCK = threading.Lock()
+def init_db():
+    c = conn()
+    c.executescript('''
+    CREATE TABLE IF NOT EXISTS users(
+        id INTEGER PRIMARY KEY,
+        name TEXT NOT NULL,
+        username TEXT,
+        audience TEXT,
+        active INTEGER DEFAULT 1,
+        joined_at TEXT NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS learned(
+        uid INTEGER NOT NULL,
+        day TEXT NOT NULL,
+        hadith_id INTEGER NOT NULL,
+        PRIMARY KEY(uid, day)
+    );
+    CREATE TABLE IF NOT EXISTS invite_events(
+        inviter INTEGER NOT NULL,
+        invited INTEGER NOT NULL,
+        created_at TEXT NOT NULL,
+        PRIMARY KEY(inviter, invited)
+    );
+    CREATE INDEX IF NOT EXISTS idx_learned_uid_day ON learned(uid, day);
+    CREATE INDEX IF NOT EXISTS idx_users_active ON users(active, audience);
+    ''')
+    c.commit(); c.close()
 
-def F(path, size):
-    return ImageFont.truetype(str(path), size)
+def now(): return datetime.now(TZ)
+def today(): return now().date()
+def day_s(d=None): return (d or today()).isoformat()
 
-def now(): return datetime.now(TIMEZONE)
-def today(): return now().date().isoformat()
-
-def db():
-    con = sqlite3.connect(DB_PATH, timeout=15)
-    con.execute('PRAGMA journal_mode=WAL')
-    con.execute('PRAGMA busy_timeout=15000')
-    con.execute('''CREATE TABLE IF NOT EXISTS users(
-        user_id INTEGER PRIMARY KEY, audience TEXT, current_hadith INTEGER DEFAULT 0,
-        joined_date TEXT, learned_today INTEGER DEFAULT 0, last_seen TEXT
-    )''')
-    con.execute('''CREATE TABLE IF NOT EXISTS learned_events(
-        id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER NOT NULL,
-        hadith_id INTEGER NOT NULL, learned_date TEXT NOT NULL,
-        UNIQUE(user_id, hadith_id, learned_date)
-    )''')
-    # Safe migration for databases created by older bot versions.
-    cols={r[1] for r in con.execute('PRAGMA table_info(users)').fetchall()}
-    if 'last_seen' not in cols:
-        con.execute('ALTER TABLE users ADD COLUMN last_seen TEXT')
-    con.commit(); return con
-
-def ensure_user(uid):
-    con=db(); row=con.execute('SELECT user_id FROM users WHERE user_id=?',(uid,)).fetchone()
-    if row is None:
-        con.execute('INSERT INTO users(user_id,joined_date,last_seen) VALUES(?,?,?)',(uid,today(),now().isoformat()))
-    else:
-        con.execute('UPDATE users SET last_seen=? WHERE user_id=?',(now().isoformat(),uid))
-    con.commit(); con.close()
+def register(user):
+    c = conn()
+    c.execute('''INSERT INTO users(id,name,username,active,joined_at) VALUES(?,?,?,?,?)
+                 ON CONFLICT(id) DO UPDATE SET name=excluded.name, username=excluded.username, active=1''',
+              (user.id, user.full_name or 'Foydalanuvchi', user.username, 1, now().isoformat()))
+    c.commit(); c.close()
 
 def get_user(uid):
-    con=db(); row=con.execute('SELECT user_id,audience,current_hadith,joined_date,learned_today FROM users WHERE user_id=?',(uid,)).fetchone(); con.close(); return row
+    c=conn(); r=c.execute('SELECT * FROM users WHERE id=?',(uid,)).fetchone(); c.close(); return r
 
-def set_audience(uid,aud):
-    con=db(); con.execute('UPDATE users SET audience=?, current_hadith=0, joined_date=COALESCE(joined_date,?), learned_today=0 WHERE user_id=?',(aud,today(),uid)); con.commit(); con.close()
+def set_audience(uid, audience):
+    c=conn(); c.execute('UPDATE users SET audience=?,active=1 WHERE id=?',(audience,uid)); c.commit(); c.close()
 
-def set_current(uid,hid):
-    con=db(); con.execute('UPDATE users SET current_hadith=?, learned_today=0, last_seen=? WHERE user_id=?',(hid,now().isoformat(),uid)); con.commit(); con.close()
-
-def mark_learned(uid,hid):
-    con=db(); d=today(); con.execute('INSERT OR IGNORE INTO learned_events(user_id,hadith_id,learned_date) VALUES(?,?,?)',(uid,hid,d)); con.execute('UPDATE users SET learned_today=1,last_seen=? WHERE user_id=?',(now().isoformat(),uid)); con.commit(); con.close()
+def learned_today(uid):
+    c=conn(); r=c.execute('SELECT 1 FROM learned WHERE uid=? AND day=?',(uid,day_s())).fetchone(); c.close(); return bool(r)
 
 def learned_count(uid):
-    con=db(); n=con.execute('SELECT COUNT(DISTINCT hadith_id) FROM learned_events WHERE user_id=?',(uid,)).fetchone()[0]; con.close(); return n
-
-def daily_count(uid):
-    con=db(); n=con.execute('SELECT COUNT(*) FROM learned_events WHERE user_id=? AND learned_date=?',(uid,today())).fetchone()[0]; con.close(); return n
+    c=conn(); n=c.execute('SELECT COUNT(*) FROM learned WHERE uid=?',(uid,)).fetchone()[0]; c.close(); return n
 
 def streak(uid):
-    con=db(); rows=con.execute('SELECT DISTINCT learned_date FROM learned_events WHERE user_id=? ORDER BY learned_date DESC',(uid,)).fetchall(); con.close()
-    dates={r[0] for r in rows}; cur=now().date(); s=0
-    while cur.isoformat() in dates:
-        s+=1; cur-=timedelta(days=1)
-    return s
+    c=conn(); rows=c.execute('SELECT day FROM learned WHERE uid=? ORDER BY day DESC',(uid,)).fetchall(); c.close()
+    days={date.fromisoformat(r['day']) for r in rows}
+    d=today() if today() in days else today()-timedelta(days=1)
+    n=0
+    while d in days:
+        n+=1; d-=timedelta(days=1)
+    return n
 
-def wrap_lines(draw,text,font,max_width):
+def longest_streak(uid):
+    c=conn(); rows=c.execute('SELECT DISTINCT day FROM learned WHERE uid=? ORDER BY day',(uid,)).fetchall(); c.close()
+    days=sorted(date.fromisoformat(r['day']) for r in rows)
+    best=cur=0; prev=None
+    for d in days:
+        if prev and d==prev+timedelta(days=1): cur+=1
+        else: cur=1
+        best=max(best,cur); prev=d
+    return best
+
+def ranking(uid=None):
+    c=conn()
+    rows=c.execute('''SELECT u.id,u.name,u.username,COUNT(l.day) n
+                      FROM users u LEFT JOIN learned l ON l.uid=u.id
+                      WHERE u.active=1 GROUP BY u.id ORDER BY n DESC,u.name LIMIT 100''').fetchall()
+    c.close()
+    pos=None
+    for i,r in enumerate(rows,1):
+        if uid and r['id']==uid: pos=i; break
+    return rows,pos
+
+# -------------------- UI --------------------
+def main_menu():
+    return ReplyKeyboardMarkup([
+        ['📖 Bugungi hadis','📊 Statistikam'],
+        ['🏆 Reyting','🔥 Streakim'],
+        ['📅 Kalendar','👤 Profil'],
+        ['📤 Do‘stlarga ulashish','🎯 Sozlamalar'],
+        ['ℹ️ Yordam']
+    ], resize_keyboard=True, is_persistent=True)
+
+def audience_menu():
+    return InlineKeyboardMarkup([[InlineKeyboardButton('👦 Bolalar uchun',callback_data='aud:children'),
+                                  InlineKeyboardButton('👨 Kattalar uchun',callback_data='aud:adults')]])
+
+def hadith_buttons(hid):
+    share='https://t.me/share/url?url=&text='+urllib.parse.quote('📖 Bugungi hadis\n\n'+next(x['text'] for x in HADITHS if x['id']==hid))
+    return InlineKeyboardMarkup([
+        [InlineKeyboardButton('✅ Bilib oldim',callback_data=f'learn:{hid}'), InlineKeyboardButton('📤 Ulashish',url=share)],
+        [InlineKeyboardButton('📖 Yana ko‘rish',callback_data='today')]
+    ])
+
+# -------------------- IMAGE RENDERING --------------------
+def font(size,bold=False):
+    paths=['/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf' if bold else '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',
+           '/usr/share/fonts/truetype/liberation2/LiberationSans-Bold.ttf' if bold else '/usr/share/fonts/truetype/liberation2/LiberationSans-Regular.ttf']
+    for p in paths:
+        if os.path.exists(p): return ImageFont.truetype(p,size)
+    return ImageFont.load_default()
+
+def wrap(draw,text,f,maxw):
     lines=[]; cur=''
-    for word in str(text).split():
-        test=word if not cur else cur+' '+word
-        if draw.textbbox((0,0),test,font=font)[2] <= max_width: cur=test
+    for word in text.split():
+        z=word if not cur else cur+' '+word
+        if draw.textbbox((0,0),z,font=f)[2] <= maxw: cur=z
         else:
             if cur: lines.append(cur)
             cur=word
     if cur: lines.append(cur)
     return lines
 
-def centered_text(draw,text,box,font,fill=TEXT,spacing=7,max_lines=4):
-    x1,y1,x2,y2=box; lines=wrap_lines(draw,text,font,x2-x1)
-    if len(lines)>max_lines:
-        lines=lines[:max_lines]; last=lines[-1]
-        while last and draw.textbbox((0,0),last+'…',font=font)[2]>x2-x1: last=last[:-1]
-        lines[-1]=last+'…'
-    hs=[draw.textbbox((0,0),l,font=font)[3] for l in lines]; total=sum(hs)+spacing*(len(lines)-1)
-    y=y1+max(0,((y2-y1)-total)//2)
-    for l,h in zip(lines,hs):
-        bb=draw.textbbox((0,0),l,font=font); x=x1+((x2-x1)-(bb[2]-bb[0]))//2; draw.text((x,y),l,font=font,fill=fill); y+=h+spacing
-
-def make_card(h):
-    hid=int(h['id'])
-    with CARD_LOCK:
-        if hid in CARD_CACHE:
-            return io.BytesIO(CARD_CACHE[hid])
-    img=Image.open(TEMPLATE).convert('RGB'); draw=ImageDraw.Draw(img)
-    draw.rounded_rectangle((265,210,650,285),radius=32,fill=GREEN,outline=GOLD,width=5)
-    draw.text((457,248),'BUGUNGI HADIS',font=F(FONT_SERIF_BOLD,37),fill=(250,232,169),anchor='mm')
-    draw.text((540,430),h['arabic'].strip(),font=F(FONT_ARABIC,58),fill=TEXT,anchor='mm',direction='rtl')
-    draw.line((380,585,750,585),fill=GOLD,width=2); draw.ellipse((560,580,570,590),fill=GOLD)
-    centered_text(draw,'“'+h['text'].strip()+'”',(170,615,930,760),F(FONT_SERIF_BOLD,40),spacing=5,max_lines=3)
-    draw.rounded_rectangle((385,785,720,845),radius=30,fill=(250,248,239),outline=GOLD,width=2)
-    centered_text(draw,f"Hadis №{h['id']} • {h['source_short']}",(400,795,705,835),F(FONT_SERIF_BOLD,20),spacing=2,max_lines=2)
-    draw.rounded_rectangle((170,885,985,1115),radius=34,fill=SOFT)
-    draw.text((240,920),'HADIS MA’NOSI',font=F(FONT_SERIF_BOLD,29),fill=TEXT)
-    centered_text(draw,h['meaning'].strip(),(225,965,945,1095),F(FONT_SERIF,23),spacing=5,max_lines=5)
-    out=io.BytesIO(); img.save(out,format='PNG',optimize=True); data=out.getvalue()
-    with CARD_LOCK: CARD_CACHE[hid]=data
-    return io.BytesIO(data)
-
-def main_menu():
-    return ReplyKeyboardMarkup([
-        ['📖 Bugungi hadis','📊 Statistikam'],
-        ['🏆 Reyting','🎯 Sozlamalar'],
-        ['📤 Do‘stlarga ulashish','ℹ️ Yordam']
-    ],resize_keyboard=True,is_persistent=True)
-
-def share_url(): return f'https://t.me/share/url?url=https://t.me/{BOT_USERNAME}&text={quote("Eng Zarur Ilm — foydali hadislarni o‘rganish boti")}'
-
-def card_markup(h,learned=False):
-    label='✓ Bilib oldim — saqlandi' if learned else '✓ Bilib oldim'
-    return InlineKeyboardMarkup([[InlineKeyboardButton(label,callback_data=f"learn:{h['id']}")],[InlineKeyboardButton('↗ Ulashish',url=share_url())]])
-
-async def send_hadith(bot,uid,hid=None):
-    row=get_user(uid)
-    if not row or not row[1]:
-        await bot.send_message(uid,'Avval /start orqali kim uchun hadis kerakligini tanlang.',reply_markup=main_menu()); return False
-    current=int(row[2] or 0)
-    if hid is None: hid=current or 1
-    if hid not in HADITH_BY_ID:
-        await bot.send_message(uid,'Hozircha tasdiqlangan hadislar bazasida bundan keyingi hadis mavjud emas. Yangi hadislar faqat manba tekshirilgach qo‘shiladi.',reply_markup=main_menu()); return False
-    set_current(uid,hid); h=HADITH_BY_ID[hid]
-    photo = await asyncio.to_thread(make_card,h)
-    await bot.send_photo(uid,photo=photo,caption=f'📖 Hadis №{h["id"]}',reply_markup=card_markup(h, bool(get_user(uid)[4])))
-    return True
-
-async def send_next(bot,uid):
-    row=get_user(uid)
-    if not row or not row[1]: return await bot.send_message(uid,'Avval /start orqali tanlov qiling.',reply_markup=main_menu())
-    nxt=int(row[2] or 0)+1
-    if nxt>len(HADITHS):
-        return await bot.send_message(uid,'📚 Hozircha barcha tasdiqlangan hadislar yuborib bo‘lindi. Keyingi hadislar manba tekshirilib qo‘shiladi.',reply_markup=main_menu())
-    return await send_hadith(bot,uid,nxt)
-
-async def start(update,context):
-    uid=update.effective_user.id; ensure_user(uid)
-    await update.message.reply_text('Assalomu alaykum!\n\nKim uchun hadislar kerakligini tanlang:',reply_markup=main_menu())
-    await update.message.reply_text('👇 Tanlang:',reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('👦 Bolalar uchun',callback_data='aud:children')],[InlineKeyboardButton('👤 Kattalar uchun',callback_data='aud:adults')]]))
-
-async def audience(update,context):
-    q=update.callback_query; await q.answer(); uid=q.from_user.id; ensure_user(uid); set_audience(uid,q.data.split(':')[1])
-    await q.edit_message_text('✓ Tanlov saqlandi. Bugungi hadis tayyorlanmoqda…')
-    await send_hadith(context.bot,uid,1)
-
-async def learned(update,context):
-    q=update.callback_query; uid=q.from_user.id; hid=int(q.data.split(':')[1]); await q.answer('Bilib oldim ✓'); await asyncio.to_thread(mark_learned,uid,hid)
-    h=HADITH_BY_ID.get(hid); 
-    if h: await q.edit_message_reply_markup(reply_markup=card_markup(h,True))
-
-async def noop(update,context): await update.callback_query.answer('Bu amal bajarilgan.')
-
-async def today_cmd(update,context):
-    uid=update.effective_user.id; ensure_user(uid); row=get_user(uid)
-    if not row[1]: return await update.message.reply_text('Avval /start orqali tanlov qiling.',reply_markup=main_menu())
-    await send_hadith(context.bot,uid,int(row[2] or 1))
-
-async def next_cmd(update,context): await send_next(context.bot,update.effective_user.id)
-
-async def stats(update,context):
-    uid=update.effective_user.id; await asyncio.to_thread(ensure_user,uid)
-    vals=await asyncio.gather(asyncio.to_thread(learned_count,uid),asyncio.to_thread(streak,uid),asyncio.to_thread(daily_count,uid))
-    await update.message.reply_text(f'📊 Sizning statistikangiz\n\n📚 O‘rganilgan hadislar: {vals[0]}\n🔥 Ketma-ket kunlar: {vals[1]}\n✅ Bugun o‘rganilgan: {vals[2]}',reply_markup=main_menu())
-
-async def rating(update,context):
-    con=db(); rows=con.execute('SELECT u.user_id,COUNT(DISTINCT e.hadith_id) c FROM users u LEFT JOIN learned_events e ON u.user_id=e.user_id GROUP BY u.user_id ORDER BY c DESC,u.user_id LIMIT 10').fetchall(); con.close()
-    text='🏆 Reyting — eng ko‘p o‘rganilgan hadislar\n\n'
-    if not rows: text+='Hozircha ma’lumot yo‘q.'
+def render_hadith_card(h):
+    template=BASE/'premium_template.png'
+    if template.exists():
+        im=Image.open(template).convert('RGB')
     else:
-        for i,(uid,c) in enumerate(rows,1): text+=f'{i}. 🟢 {c} ta hadis\n'
-    await update.message.reply_text(text,reply_markup=main_menu())
+        im=Image.new('RGB',(1536,1536),(35,20,10))
+    d=ImageDraw.Draw(im)
+    # Dynamic content area: the reference template reserves a cream central panel.
+    # Text is programmatically rendered so the source text is never AI-generated.
+    d.rounded_rectangle((70,300,930,1130),radius=30,fill=(246,239,218),outline=(196,151,70),width=3)
+    d.rounded_rectangle((150,215,850,295),radius=30,fill=(205,158,67))
+    d.text((365,235),'BUGUNGI HADIS',font=font(32,True),fill=(52,38,21))
+    y=340
+    d.text((110,y),f'HADIS № {h["id"] if h["id"] else "KIRISH"}',font=font(30,True),fill=(105,77,39)); y+=70
+    for line in wrap(d,h['text'],font(42,True),760):
+        d.text((110,y),line,font=font(42,True),fill=(39,34,28)); y+=58
+    y+=30
+    d.text((110,y),'MA’NOSI / SABOQ',font=font(28,True),fill=(105,77,39)); y+=52
+    meaning=h.get('meaning') or h['text']
+    for line in wrap(d,meaning,font(29),760)[:7]:
+        d.text((110,y),line,font=font(29),fill=(58,52,45)); y+=42
+    y=min(y+20,1040)
+    d.text((110,y),'MANBA',font=font(24,True),fill=(105,77,39)); y+=40
+    for line in wrap(d,h['source_full'],font(22),760)[:3]:
+        d.text((110,y),line,font=font(22),fill=(75,67,57)); y+=31
+    out=BASE/f'.card_{h["id"]}.png'; im.save(out,quality=95); return out
 
-async def settings(update,context):
-    await update.message.reply_text('🎯 Sozlamalar\n\nAuditoriyani almashtirish:',reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('👦 Bolalar uchun',callback_data='aud:children')],[InlineKeyboardButton('👤 Kattalar uchun',callback_data='aud:adults')]]))
+def render_dashboard(uid):
+    u=get_user(uid); count=learned_count(uid); st=streak(uid); best=longest_streak(uid); rows,pos=ranking(uid)
+    im=Image.new('RGB',(1080,1550),(27,18,12)); d=ImageDraw.Draw(im)
+    gold=(229,174,76); cream=(246,238,214); muted=(169,145,110); panel=(40,27,18)
+    d.text((65,55),'ENG ZARUR ILM',font=font(62,True),fill=gold)
+    d.text((68,130),'SHAXSIY KABINET',font=font(28,True),fill=cream)
+    d.text((68,180),(u['name'] if u else 'Foydalanuvchi'),font=font(34,True),fill=cream)
+    cards=[('O‘rganilgan hadis',str(count)),('Joriy seriya',f'{st} kun'),('Eng uzun seriya',f'{best} kun'),('Reyting',f'{pos or "—"}-o‘rin')]
+    y=250
+    for title,val in cards:
+        d.rounded_rectangle((55,y,1025,y+150),radius=24,fill=panel,outline=(72,52,31),width=2)
+        d.text((85,y+28),val,font=font(48,True),fill=gold)
+        d.text((85,y+95),title,font=font(25),fill=muted); y+=175
+    d.text((65,980),'BUGUN',font=font(26,True),fill=gold)
+    status='Bajarildi' if learned_today(uid) else 'Hali bajarilmagan'
+    d.text((65,1030),f'Bugungi hadis: {status}',font=font(32,True),fill=cream)
+    d.text((65,1140),'MANBA TARTIBI',font=font(26,True),fill=gold)
+    d.text((65,1190),'1) 101-hadis.pdf',font=font(28),fill=cream)
+    d.text((65,1235),'2) Keyingi bosqich — tasdiqlangan hadis kitoblari',font=font(24),fill=muted)
+    out=BASE/f'.dashboard_{uid}.png'; im.save(out,quality=95); return out
 
-async def share(update,context):
-    await update.message.reply_text('📤 Do‘stlaringizga yuboring:',reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('📤 Ulashish',url=share_url())]]))
+def render_calendar(uid,year=None,month=None):
+    dte=today(); year=year or dte.year; month=month or dte.month
+    im=Image.new('RGB',(1080,1450),(27,18,12)); d=ImageDraw.Draw(im)
+    gold=(229,174,76); cream=(246,238,214); muted=(169,145,110); panel=(40,27,18); done=(221,169,73); empty=(53,37,24)
+    d.text((65,50),calendar.month_name[month]+' '+str(year),font=font(48,True),fill=cream)
+    d.text((65,120),'📅 O‘RGANISH KALENDARI',font=font(28,True),fill=gold)
+    names=['Du','Se','Ch','Pa','Ju','Sh','Ya']; x0=65; y0=210; cw=135; ch=105
+    for i,n in enumerate(names): d.text((x0+i*cw+45,y0),n,font=font(24,True),fill=muted)
+    c=conn(); rows=c.execute("SELECT day FROM learned WHERE uid=? AND day LIKE ?",(uid,f'{year:04d}-{month:02d}-%')).fetchall(); c.close(); done_days={int(r['day'][-2:]) for r in rows}
+    weeks=calendar.monthcalendar(year,month)
+    for wi,wk in enumerate(weeks):
+        for di,day in enumerate(wk):
+            if not day: continue
+            x=x0+di*cw; y=y0+55+wi*ch
+            fill=done if day in done_days else empty
+            d.rounded_rectangle((x,y,x+118,y+78),radius=16,fill=fill)
+            d.text((x+48,y+20),str(day),font=font(26,True),fill=(35,27,18) if day in done_days else muted)
+    y=1120
+    d.rounded_rectangle((65,y,1015,y+170),radius=24,fill=panel)
+    n=len(done_days)
+    d.text((90,y+30),f'Bu oyda o‘rganilgan kunlar: {n}',font=font(31,True),fill=cream)
+    d.text((90,y+90),'🟨 Bajarilgan     ⬛ Hali bajarilmagan',font=font(25),fill=muted)
+    out=BASE/f'.calendar_{uid}.png'; im.save(out,quality=95); return out
 
-async def help_cmd(update,context):
-    await update.message.reply_text('ℹ️ Yordam\n\n📖 Bugungi hadis — hozirgi hadisni ko‘rsatadi.\n📊 Statistikam — shaxsiy natijalar.\n🏆 Reyting — o‘rganish faolligi.\n🎯 Sozlamalar — auditoriyani almashtirish.\n📤 Do‘stlarga ulashish — botni ulashish.\n\nBirinchi hadis tanlovdan keyin darhol yuboriladi; keyingi kunlarda kunlik yuborish avtomatik ishlaydi.',reply_markup=main_menu())
+# -------------------- HADITH FLOW --------------------
+def hadith_for_user(uid):
+    u=get_user(uid)
+    if not u or not u['audience']: return None
+    # Strict sequence: first 101-hadis source, never random.
+    # Same hadith is shown for the whole day; learned state decides completion.
+    idx=(today().toordinal()-1) % len(HADITHS)
+    return HADITHS[idx]
 
-async def text_menu(update,context):
-    t=(update.message.text or '').strip()
-    if t=='📖 Bugungi hadis': return await today_cmd(update,context)
-    if t=='📊 Statistikam': return await stats(update,context)
-    if t=='🏆 Reyting': return await rating(update,context)
-    if t=='🎯 Sozlamalar': return await settings(update,context)
-    if t=='📤 Do‘stlarga ulashish': return await share(update,context)
-    if t=='ℹ️ Yordam': return await help_cmd(update,context)
+async def send_hadith(chat_id,uid,ctx,first=False):
+    h=hadith_for_user(uid)
+    if not h:
+        await ctx.bot.send_message(chat_id,'Avval auditoriyani tanlang:',reply_markup=audience_menu()); return
+    p=render_hadith_card(h)
+    cap=(f'📖 <b>BUGUNGI HADIS</b>\n\n{h["text"]}\n\n'
+         f'📚 <b>Manba:</b> {h["source_full"]}\n'
+         f'ℹ️ PDFda alohida hadis darajasi ko‘rsatilmagan.')
+    with open(p,'rb') as f:
+        await ctx.bot.send_photo(chat_id,f,caption=cap,reply_markup=hadith_buttons(h['id']),parse_mode='HTML')
 
-async def daily_job(context):
-    con=db(); rows=con.execute('SELECT user_id,joined_date,audience,current_hadith FROM users WHERE audience IS NOT NULL').fetchall(); con.close(); d=today()
-    for uid,joined,aud,current in rows:
-        if joined==d: continue
+# -------------------- HANDLERS --------------------
+async def start(update:Update,ctx:ContextTypes.DEFAULT_TYPE):
+    user=update.effective_user; register(user)
+    if ctx.args:
         try:
-            nxt=int(current or 0)+1
-            if nxt<=len(HADITHS): await send_hadith(context.bot,uid,nxt)
-        except Exception:
-            log.exception('Daily send failed for %s',uid)
+            inviter=int(ctx.args[0])
+            if inviter!=user.id:
+                c=conn(); c.execute('INSERT OR IGNORE INTO invite_events(inviter,invited,created_at) VALUES(?,?,?)',(inviter,user.id,now().isoformat())); c.commit(); c.close()
+        except ValueError: pass
+    u=get_user(user.id)
+    if u and u['audience']:
+        await update.message.reply_text('🌙 <b>ENG ZARUR ILM</b>\n\nBugungi hadisni davom ettiramiz. Quyidagi menyudan bo‘limni tanlang.',parse_mode='HTML',reply_markup=main_menu())
+        await send_hadith(update.effective_chat.id,user.id,ctx,first=False)
+    else:
+        await update.message.reply_text('🌙 <b>ENG ZARUR ILM</b>\n\nHar kuni bitta hadisni o‘rganib, uni odatga aylantiring.\n\n<b>Kim uchun hadislar kerak?</b>',parse_mode='HTML',reply_markup=audience_menu())
+        await update.message.reply_text('Menyudan bo‘limlarni keyin ham ishlatishingiz mumkin.',reply_markup=main_menu())
 
-class HealthHandler(BaseHTTPRequestHandler):
+async def callback(update:Update,ctx:ContextTypes.DEFAULT_TYPE):
+    q=update.callback_query; await q.answer(); register(q.from_user)
+    if q.data.startswith('aud:'):
+        aud=q.data.split(':',1)[1]; set_audience(q.from_user.id,aud)
+        label='Bolalar' if aud=='children' else 'Kattalar'
+        await q.edit_message_text(f'✅ <b>{label}</b> uchun oqim tanlandi.\n\n📖 Birinchi hadis hozir yuboriladi. Keyingi kunlarda ketma-ket davom etadi.',parse_mode='HTML')
+        await send_hadith(q.message.chat_id,q.from_user.id,ctx,first=True)
+        return
+    if q.data.startswith('learn:'):
+        hid=int(q.data.split(':',1)[1])
+        c=conn(); c.execute('INSERT OR IGNORE INTO learned(uid,day,hadith_id) VALUES(?,?,?)',(q.from_user.id,day_s(),hid)); c.commit(); c.close()
+        await q.edit_message_reply_markup(reply_markup=None)
+        await q.message.reply_text(f'✅ <b>Bilib oldim</b> saqlandi!\n\n🔥 Joriy seriya: <b>{streak(q.from_user.id)} kun</b>',parse_mode='HTML',reply_markup=main_menu())
+        return
+    if q.data=='today': await send_hadith(q.message.chat_id,q.from_user.id,ctx); return
+
+async def text_handler(update:Update,ctx:ContextTypes.DEFAULT_TYPE):
+    register(update.effective_user); t=(update.message.text or '').strip(); uid=update.effective_user.id
+    if t=='📖 Bugungi hadis': await send_hadith(update.effective_chat.id,uid,ctx)
+    elif t=='📊 Statistikam':
+        p=render_dashboard(uid); await update.message.reply_photo(open(p,'rb'),caption='📊 <b>Shaxsiy statistika</b>',parse_mode='HTML',reply_markup=main_menu())
+    elif t=='🏆 Reyting': await show_rating(update.effective_chat.id,uid,ctx)
+    elif t=='🔥 Streakim': await update.message.reply_text(f'🔥 <b>Joriy seriya:</b> {streak(uid)} kun\n🏆 <b>Eng uzun seriya:</b> {longest_streak(uid)} kun',parse_mode='HTML')
+    elif t=='📅 Kalendar':
+        p=render_calendar(uid); await update.message.reply_photo(open(p,'rb'),caption='📅 <b>Oylik faollik kalendari</b>',parse_mode='HTML')
+    elif t=='👤 Profil': await show_profile(update.effective_chat.id,uid,ctx)
+    elif t=='📤 Do‘stlarga ulashish':
+        link=f'https://t.me/{BOT_USERNAME}?start={uid}'
+        await update.message.reply_text(f'📤 <b>Do‘stlaringizni taklif qiling</b>\n\nSizning havolangiz:\n{link}\n\n👥 Siz orqali qo‘shilganlar: {invite_count(uid)}',parse_mode='HTML')
+    elif t=='🎯 Sozlamalar': await update.message.reply_text('🎯 <b>Sozlamalar</b>\n\nAuditoriyani almashtirish:',parse_mode='HTML',reply_markup=audience_menu())
+    elif t=='ℹ️ Yordam': await help_text(update.effective_chat.id,ctx)
+    elif ctx.user_data.get('broadcast') and uid in ADMIN_IDS: await do_broadcast(update,ctx)
+
+async def show_rating(chat,uid,ctx):
+    rows,pos=ranking(uid); lines=['🏆 <b>ENG FAOL O‘RGANUVCHILAR</b>','']
+    for i,r in enumerate(rows[:10],1):
+        mark='🥇' if i==1 else '🥈' if i==2 else '🥉' if i==3 else f'{i}.'
+        lines.append(f'{mark} {r["name"]} — {r["n"]} kun')
+    if pos: lines += ['',f'📍 <b>Sizning o‘rningiz:</b> {pos}']
+    await ctx.bot.send_message(chat, '\n'.join(lines),parse_mode='HTML',reply_markup=main_menu())
+
+async def show_profile(chat,uid,ctx):
+    u=get_user(uid); n=invite_count(uid); await ctx.bot.send_message(chat,
+        f'👤 <b>{u["name"]}</b>\n\n📚 O‘rganilgan: <b>{learned_count(uid)}</b> hadis\n🔥 Seriya: <b>{streak(uid)}</b> kun\n🏆 Eng uzun: <b>{longest_streak(uid)}</b> kun\n👥 Takliflar: <b>{n}</b>',parse_mode='HTML',reply_markup=main_menu())
+
+def invite_count(uid):
+    c=conn(); n=c.execute('SELECT COUNT(*) FROM invite_events WHERE inviter=?',(uid,)).fetchone()[0]; c.close(); return n
+
+async def help_text(chat,ctx):
+    await ctx.bot.send_message(chat,'ℹ️ <b>Qanday ishlaydi?</b>\n\n1. Auditoriyani tanlaysiz.\n2. Hadis keladi.\n3. O‘qib, <b>Bilib oldim</b>ni bosasiz.\n4. Streak va statistikangiz yuritiladi.\n5. Reytingda o‘rningiz ko‘rinadi.\n\nHadislar avval 101-hadis.pdf tartibida ketadi.',parse_mode='HTML',reply_markup=main_menu())
+
+# -------------------- ADMIN --------------------
+async def admin(update:Update,ctx:ContextTypes.DEFAULT_TYPE):
+    if update.effective_user.id not in ADMIN_IDS: return await update.message.reply_text('⛔ Faqat admin uchun.')
+    c=conn(); users=c.execute('SELECT COUNT(*) FROM users WHERE active=1').fetchone()[0]; learned=c.execute('SELECT COUNT(*) FROM learned').fetchone()[0]; c.close()
+    await update.message.reply_text(f'👑 <b>ADMIN</b>\n\n👥 Faol foydalanuvchilar: {users}\n📖 Bajarilganlar: {learned}\n📚 Hozirgi tekshirilgan baza: {len(HADITHS)} yozuv\n\n/broadcast — e’lon yuborish\n/test_hadis — test hadis',parse_mode='HTML')
+
+async def test_hadis(update:Update,ctx:ContextTypes.DEFAULT_TYPE):
+    if update.effective_user.id not in ADMIN_IDS: return
+    if not get_user(update.effective_user.id)['audience']: set_audience(update.effective_user.id,'adults')
+    await send_hadith(update.effective_chat.id,update.effective_user.id,ctx)
+
+async def broadcast(update:Update,ctx:ContextTypes.DEFAULT_TYPE):
+    if update.effective_user.id not in ADMIN_IDS: return
+    ctx.user_data['broadcast']=True; await update.message.reply_text('📢 E’lon matni yoki rasmini yuboring.')
+
+async def do_broadcast(update:Update,ctx:ContextTypes.DEFAULT_TYPE):
+    ctx.user_data['broadcast']=False; c=conn(); users=c.execute('SELECT id FROM users WHERE active=1').fetchall(); c.close(); sent=fail=0
+    for r in users:
+        try:
+            await ctx.bot.copy_message(r['id'],update.effective_chat.id,update.effective_message.message_id); sent+=1
+        except Exception: fail+=1
+    await update.message.reply_text(f'📢 Yuborildi: {sent}\nYetkazilmadi: {fail}')
+
+# -------------------- SCHEDULE --------------------
+async def daily_job(ctx):
+    # First-day protection: a user who joined today already received the first hadith.
+    c=conn(); users=c.execute("SELECT id,audience,joined_at FROM users WHERE active=1 AND audience IS NOT NULL").fetchall(); c.close()
+    for r in users:
+        try:
+            joined=datetime.fromisoformat(r['joined_at']).astimezone(TZ).date()
+            if joined==today(): continue
+            await send_hadith(r['id'],r['id'],ctx)
+        except Exception:
+            continue
+
+async def reminder_job(ctx):
+    c=conn(); users=c.execute('SELECT id FROM users WHERE active=1 AND audience IS NOT NULL').fetchall(); c.close()
+    for r in users:
+        if learned_today(r['id']): continue
+        try: await ctx.bot.send_message(r['id'],'🌱 Bugungi hadisni o‘qib, <b>Bilib oldim</b> tugmasini bosishni unutmang.\n\n🔥 Seriyangizni saqlab qoling!',parse_mode='HTML')
+        except Exception: pass
+
+# -------------------- HEALTH / MAIN --------------------
+class Health(BaseHTTPRequestHandler):
     def do_GET(self):
         self.send_response(200); self.send_header('Content-Type','text/plain; charset=utf-8'); self.end_headers(); self.wfile.write(b'Eng_zarur_ilm_bot OK')
     def log_message(self,*args): pass
 
-def start_health_server():
-    port=int(os.getenv('PORT','10000')); HTTPServer(('0.0.0.0',port),HealthHandler).serve_forever()
-
-def error_handler(update,context): log.exception('Telegram handler error',exc_info=context.error)
+def start_health():
+    threading.Thread(target=lambda:HTTPServer(('0.0.0.0',PORT),Health).serve_forever(),daemon=True).start()
 
 def main():
-    if not TOKEN: raise RuntimeError('TELEGRAM_BOT_TOKEN topilmadi.')
-    threading.Thread(target=start_health_server,daemon=True).start()
-    app=Application.builder().token(TOKEN).connect_timeout(10).read_timeout(30).write_timeout(30).pool_timeout(10).concurrent_updates(True).build()
-    app.add_handler(CommandHandler('start',start)); app.add_handler(CommandHandler('help',help_cmd)); app.add_handler(CommandHandler('today',today_cmd)); app.add_handler(CommandHandler('next',next_cmd)); app.add_handler(CommandHandler('stats',stats)); app.add_handler(CommandHandler('rating',rating)); app.add_handler(CommandHandler('settings',settings))
-    app.add_handler(CallbackQueryHandler(audience,pattern=r'^aud:')); app.add_handler(CallbackQueryHandler(learned,pattern=r'^learn:')); app.add_handler(CallbackQueryHandler(noop,pattern=r'^noop$'))
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND,text_menu))
-    app.add_error_handler(error_handler)
-    app.job_queue.run_daily(daily_job,time=time(6,0,tzinfo=TIMEZONE),name='daily_hadith')
-    app.run_polling(drop_pending_updates=True,allowed_updates=Update.ALL_TYPES)
+    if not TOKEN: raise RuntimeError('TELEGRAM_BOT_TOKEN topilmadi')
+    init_db(); start_health()
+    app=Application.builder().token(TOKEN).build()
+    app.add_handler(CommandHandler('start',start))
+    app.add_handler(CommandHandler('admin',admin))
+    app.add_handler(CommandHandler('broadcast',broadcast))
+    app.add_handler(CommandHandler('test_hadis',test_hadis))
+    app.add_handler(CallbackQueryHandler(callback))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND,text_handler))
+    app.job_queue.run_daily(daily_job,time=time(6,0,tzinfo=TZ),name='daily_hadith')
+    app.job_queue.run_daily(reminder_job,time=time(12,0,tzinfo=TZ),name='reminder_1')
+    app.job_queue.run_daily(reminder_job,time=time(20,0,tzinfo=TZ),name='reminder_2')
+    print('ENG_ZARUR_ILM_BOT v3 started',TZ,PORT)
+    app.run_polling(drop_pending_updates=True)
 
 if __name__=='__main__': main()
