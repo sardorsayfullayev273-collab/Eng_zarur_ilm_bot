@@ -1,810 +1,802 @@
 [
   {
-    "id": 0,
-    "text": "Ummatimdan qaysi kishi sunnatimdan qirqta hadisni yod olsa, qiyomat kunida uni shafoatim ostiga kiritaman.",
-    "meaning": "Ummatimdan qaysi kishi sunnatimdan qirqta hadisni yod olsa, qiyomat kunida uni shafoatim ostiga kiritaman.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 1-hadisdan oldingi kirish rivoyati",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
-  },
-  {
     "id": 1,
-    "text": "Илм изламоқ ҳар бир мусулмонга фарздир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 1-hadis",
-    "meaning": "Илм изламоқ ҳар бир мусулмонга фарздир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "\"Илм изламоқ ҳар бир мусулмонга фарздир\". (Имом Абу Ҳанифа муснадида Анас ибн Моликдан ва Табароний Абдуллоҳ ибн Масьуд Розияллоҳу анҳудан ривоят қилишган.)",
+    "meaning": "Исломда ўзининг билмаган нарсасини билишга ҳаракат қилиш ҳар бир мусулмон эркак ва аѐлга учун буюк вазифадир. Кимда-ким шу вазифани адо этмаса қиѐматда қаттиқ жазога йўлиқади.",
+    "source": "101-hadis.pdf • 1-hadis",
+    "source_note": "Имом Абу Ҳанифа муснадида Анас ибн Моликдан ва \nТабароний Абдуллоҳ ибн Масьуд Розияллоҳу анҳудан ривоят \nқилишган.",
+    "sequence": 1
   },
   {
     "id": 2,
-    "text": "Илмни Хитойдан бўлса ҳам бориб олинглар, чунки илм излаш ҳар бир мусулмонга фарздир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 2-hadis",
-    "meaning": "Илмни Хитойдан бўлса ҳам бориб олинглар, чунки илм излаш ҳар бир мусулмонга фарздир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "\"Илмни Хитойдан бўлса ҳам бориб олинглар, чунки илм излаш ҳар бир мусулмонга фарздир\". Байҳақий Анас ибн Молик розияллоҳу анҳудан ривоят қилган.",
+    "meaning": "йўлнинг узоқлигига, халқнинг хато бир динда бўлишига қарамай илмни қаерда топсангиз ўша ердан олинг дейилмоқчи.",
+    "source": "101-hadis.pdf • 2-hadis",
+    "source_note": "و ه  ل  هقي ٍ َنْ أَنَسِ بْنِ مَقلِك",
+    "sequence": 2
   },
   {
     "id": 3,
     "text": "Илмни бешикдан то қабрга қадар изланглар!",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 3-hadis",
-    "meaning": "Илмни бешикдан то қабрга қадар изланглар!",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "Мен қаридим, менинг вақтим ўтди, деб ҳеч бир вақт айтиб бўлмайди. Инсоннинг энг охирги нафаси қолгунча билимсизликни кетказишга ҳаракат қилиши зарур.",
+    "source": "101-hadis.pdf • 3-hadis",
+    "source_note": "",
+    "sequence": 3
   },
   {
     "id": 4,
     "text": "Илм талабидаги бир соат тунни бедор ўтказгандан яхшироқдир. Илм йўлидаги бир кун уч ой рўза тутмоқдан хайрлироқдир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 4-hadis",
-    "meaning": "Илм талабидаги бир соат тунни бедор ўтказгандан яхшироқдир. Илм йўлидаги бир кун уч ой рўза тутмоқдан хайрлироқдир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 4-hadis",
+    "source_note": "أب  نع    َن  بْن  َ َّلق ، أخرجو أيضًق  لديسمي",
+    "sequence": 4
   },
   {
     "id": 5,
     "text": "Илм излаш ҳар мусулмонга фарздир. Илм изловчи киши учун ҳар бир нарса, ҳатто денгиздаги балиқ ҳам мағфират тилар.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 5-hadis",
-    "meaning": "Илм излаш ҳар мусулмонга фарздир. Илм изловчи киши учун ҳар бир нарса, ҳатто денгиздаги балиқ ҳам мағфират тилар.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 5-hadis",
+    "source_note": "و ه  بن   د  لرب  ن أنس",
+    "sequence": 5
   },
   {
     "id": 6,
     "text": "Илм (нафл) ибодатдан афзалдир. Диннинг асоси парҳезкорликдир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 6-hadis",
-    "meaning": "Илм (нафл) ибодатдан афзалдир. Диннинг асоси парҳезкорликдир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 6-hadis",
+    "source_note": "нафл",
+    "sequence": 6
   },
   {
     "id": 7,
-    "text": "Илмнинг фазилати мен учун (нафл) ибодатнинг фазилатидан суюклироқдир. Динларингизни яхшиcи парҳезкорлик,.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 7-hadis",
-    "meaning": "Илмнинг фазилати мен учун (нафл) ибодатнинг фазилатидан суюклироқдир. Динларингизни яхшиcи парҳезкорлик,.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Илмнинг фазилати мен учун (нафл) ибодатнинг фазилатидан суюклироқдир. Динларингизни яхшиcи парҳезкорлик, яъни ҳаром бўлган нарсалардан сақланмоқдир.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 7-hadis",
+    "source_note": "нафл",
+    "sequence": 7
   },
   {
     "id": 8,
-    "text": "Олим бўл ёки илм ўрганувчи бўл ёки эшитувчи бўл ёки шуларни севувчи бўл. Аммо буларнинг бешинчиси бўлма ҳалокатга учрайсан.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 8-hadis",
-    "meaning": "Олим бўл ёки илм ўрганувчи бўл ёки эшитувчи бўл ёки шуларни севувчи бўл. Аммо буларнинг бешинчиси бўлма ҳалокатга учрайсан.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Олим бўл ѐки илм ўрганувчи бўл ѐки эшитувчи бўл ѐки шуларни севувчи бўл. Аммо буларнинг бешинчиси бўлма ҳалокатга учрайсан.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 8-hadis",
+    "source_note": "و ه  ل  هقي يف شعب  إلميقن و لطرب ين يف معج   ألو ط",
+    "sequence": 8
   },
   {
     "id": 9,
     "text": "Улуғлар билан ўтиринглар, уламолардан сўранглар ва ҳаким-донишмандлар ила аралашиб юринглар.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 9-hadis",
-    "meaning": "Улуғлар билан ўтиринглар, уламолардан сўранглар ва ҳаким-донишмандлар ила аралашиб юринглар.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 9-hadis",
+    "source_note": "و ه  لطرب ين",
+    "sequence": 9
   },
   {
     "id": 10,
-    "text": "Сизларнинг яхшиларингиз Қуръонни ўрганиб, уни (бошқаларга) ўргатганларингиздир.",
-    "meaning": "Сизларнинг яхшиларингиз Қуръонни ўрганиб, уни (бошқаларга) ўргатганларингиздир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 10-hadis",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "ўргатганларингиздир.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 10-hadis",
+    "source_note": "бошқаларга",
+    "sequence": 10
   },
   {
     "id": 11,
     "text": "Ҳикматлик сўз мўминнинг йўқотганидир, уни қаердан топса ўша нарсага ҳақлироқдир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 11-hadis",
-    "meaning": "Ҳикматлик сўз мўминнинг йўқотганидир, уни қаердан топса ўша нарсага ҳақлироқдир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 11-hadis",
+    "source_note": "َ َ و ه  للممي و  بن مقجو  َنْ أَيبِ ىُرَيَبْر",
+    "sequence": 11
   },
   {
     "id": 12,
-    "text": "Ким Аллоҳ йўлида икки оёғини чанг қилса Аллоҳ таоло уни жаҳаннамга ҳаром қилади.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 12-hadis",
-    "meaning": "Ким Аллоҳ йўлида икки оёғини чанг қилса Аллоҳ таоло уни жаҳаннамга ҳаром қилади.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Ким Аллоҳ йўлида икки оѐғини чанг қилса Аллоҳ таоло уни жаҳаннамга ҳаром қилади.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 12-hadis",
+    "source_note": "و ه  ل خق ي و للممي و لنسقئي و ل  هقي و بن ح قن",
+    "sequence": 12
   },
   {
     "id": 13,
-    "text": "Олимлар халқи устидаги Аллоҳнинг ишончли бандаларидир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 13-hadis",
-    "meaning": "Олимлар халқи устидаги Аллоҳнинг ишончли бандаларидир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Олимлар халқи устидаги Аллоҳнинг ишончли бандаларидир. Яъни, халқлар олимларнинг сўзларига қулоқ солиб, улар кўрсатган йўл билан юришлари зарур.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 13-hadis",
+    "source_note": "و ه  لْقُضَق ِي وَ بْن  َسَقكِر  َن أنس",
+    "sequence": 13
   },
   {
     "id": 14,
-    "text": "Илмни ёзиш орқали маҳкам ушланглар.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 14-hadis",
-    "meaning": "Илмни ёзиш орқали маҳкам ушланглар.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Илмни ёзиш орқали маҳкам ушланглар. Яъни, ҳар бир эшитилган яхши сўз хотирада турмай унутиладиган бўлганидан кейин ѐзиб қўйинглар! Кейин шунга қараб билиб оласизлар. Шунинг учун ҳар кимга, хусусан ўқувчиларга ўзи билан бирга ѐн дафтари ва қалам олиб юришга одатлантириш керак.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 14-hadis",
+    "source_note": "و ه  خلَطِ بُ وَ بن  لعسقكر",
+    "sequence": 14
   },
   {
     "id": 15,
-    "text": "Илмнинг офати унутиш ва лойиқ бўлмаган кишига илмни сўзлаб зое қилишдир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 15-hadis",
-    "meaning": "Илмнинг офати унутиш ва лойиқ бўлмаган кишига илмни сўзлаб зое қилишдир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Илмнинг офати унутиш ва лойиқ бўлмаган кишига илмни сўзлаб зое қилишдир. Яъни: ўрганилган илмни унутмаслик ва лойиқ бўлмаган одамларга сўзлашдан сақланиш зарур.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 15-hadis",
+    "source_note": "",
+    "sequence": 15
   },
   {
     "id": 16,
     "text": "Аллоҳ таолодан (дунё ва охиратда) фойда берадиган илмни сўраб, (на дунё, на охиратда) фойда бермайдиган илмдан Аллоҳ номи билан паноҳ тиланглар.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 16-hadis",
-    "meaning": "Аллоҳ таолодан (дунё ва охиратда) фойда берадиган илмни сўраб, (на дунё, на охиратда) фойда бермайдиган илмдан Аллоҳ номи билан паноҳ тиланглар.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 16-hadis",
+    "source_note": "на дунё, на охиратда",
+    "sequence": 16
   },
   {
     "id": 17,
     "text": "Аллоҳим! Фойда бермайдиган илмдан, холис бўлмаган амалдан, қабул этилмайдиган дуодан Сенинг номинг билан паноҳ тилайман.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 17-hadis",
-    "meaning": "Аллоҳим! Фойда бермайдиган илмдан, холис бўлмаган амалдан, қабул этилмайдиган дуодан Сенинг номинг билан паноҳ тилайман.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 17-hadis",
+    "source_note": "و ه  لطرب ين  ن  بْنِ  َ َّلق ٍ  بن ح قن و ل  هقي  َنْ أَنَسِ بْنِ مَقلِكٍ و بن مقجو  ن أيب ىرير",
+    "sequence": 17
   },
   {
     "id": 18,
-    "text": "Илмни ўрганиб, бошқаларга ўргатмаган киши кўп мол-дунё тўплаб, ундан (ҳеч нарса) сарфламаган киши кабидир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 18-hadis",
-    "meaning": "Илмни ўрганиб, бошқаларга ўргатмаган киши кўп мол-дунё тўплаб, ундан (ҳеч нарса) сарфламаган киши кабидир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Илмни ўрганиб, бошқаларга ўргатмаган киши кўп мол-дунё тўплаб, ундан (ҳеч нарса) сарфламаган киши кабидир. Яъни, молни тўплаб, сарфламаслик қанчалик хунук бўлса, бу ҳам шундай хунук ишдир.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 18-hadis",
+    "source_note": "ҳеч нарса",
+    "sequence": 18
   },
   {
     "id": 19,
     "text": "Одамларга ваъз насиҳат қилиб, яхшилик ўргатсада, ўзини унутиб қўйган олимнинг мисоли ўзини кўйдириб, одамларга нур сочган чироқнинг мисоли кабидир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 19-hadis",
-    "meaning": "Одамларга ваъз насиҳат қилиб, яхшилик ўргатсада, ўзини унутиб қўйган олимнинг мисоли ўзини кўйдириб, одамларга нур сочган чироқнинг мисоли кабидир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 19-hadis",
+    "source_note": "لطرب ين،  ن جندب بن   د  ا",
+    "sequence": 19
   },
   {
     "id": 20,
-    "text": "Аллоҳим! Мен илм билан бойит, ҳилм билан зийнатла, тақво билан ҳурматли қил, офият билан гўзал қил!",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 20-hadis",
-    "meaning": "Аллоҳим! Мен илм билан бойит, ҳилм билан зийнатла, тақво билан ҳурматли қил, офият билан гўзал қил!",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Аллоҳим! Мен илм билан бойит, ҳилм билан зийнатла, тақво билан ҳурматли қил, офият билан гўзал қил! Иккинчи боб Касб ва тижоратга доир",
+    "meaning": "",
+    "source": "101-hadis.pdf • 20-hadis",
+    "source_note": "أخرجو  لر فعي  لقزويين يف\n كتقب \" لتدوين يف أخ ق   زوين\"",
+    "sequence": 20
   },
   {
     "id": 21,
-    "text": "Ҳалол ризқ изламоқ ҳар бир мусулмонга вожибдир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 21-hadis",
-    "meaning": "Ҳалол ризқ изламоқ ҳар бир мусулмонга вожибдир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Ҳалол ризқ изламоқ ҳар бир мусулмонга вожибдир. Яъни, пешонамга нима ѐзилган бўлса ўзи келади, деб ҳаракат қилмай бекор ѐтиш исломда мақбул иш эмас. Ҳар бир одам ўзининг оиласини тўйдирадиган миқдорда касб қилиш фарздир.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 21-hadis",
+    "source_note": "و ه ٍ لطرب ين  َنْ أَنَسِ بْنِ مَقلِك",
+    "sequence": 21
   },
   {
     "id": 22,
-    "text": "Деҳқончилик қилинглар, чунки деҳқончилик муборак Экканларингизга зарар етмаслиги учун қўриқчиларни кўп қилинглар.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 22-hadis",
-    "meaning": "Деҳқончилик қилинглар, чунки деҳқончилик муборак Экканларингизга зарар етмаслиги учун қўриқчиларни кўп қилинглар.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Деҳқончилик қилинглар, чунки деҳқончилик муборак (баракалик иш)дир. Экканларингизга зарар етмаслиги учун қўриқчиларни кўп қилинглар.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 22-hadis",
+    "source_note": "баракалик иш",
+    "sequence": 22
   },
   {
     "id": 23,
-    "text": "Касбларнинг энг яхшиси, кишининг ўз қўли билан қилган касбидир. Ҳамда хиёнатсиз ва ёлғонсиз бўлган савдодир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 23-hadis",
-    "meaning": "Касбларнинг энг яхшиси, кишининг ўз қўли билан қилган касбидир. Ҳамда хиёнатсиз ва ёлғонсиз бўлган савдодир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Касбларнинг энг яхшиси, кишининг ўз қўли билан қилган касбидир. Ҳамда хиѐнатсиз ва ѐлғонсиз бўлган савдодир.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 23-hadis",
+    "source_note": "أمحد، و لطرب ين، و اقك ، و ل  هق\nي\n  ن   فع بن خديج",
+    "sequence": 23
   },
   {
     "id": 24,
-    "text": "Касбларнинг энг афзали хиёнатсиз ва ёлғонсиз бўлган савдо ҳамда кишининг ўз қўл кучи билан ишлаб топган ишидир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 24-hadis",
-    "meaning": "Касбларнинг энг афзали хиёнатсиз ва ёлғонсиз бўлган савдо ҳамда кишининг ўз қўл кучи билан ишлаб топган ишидир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Касбларнинг энг афзали хиѐнатсиз ва ѐлғонсиз бўлган савдо ҳамда кишининг ўз қўл кучи билан ишлаб топган ишидир.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 24-hadis",
+    "source_note": "ُأخرجو  إلِمَقم أَمحْ د وَ لطَّل َبَرَ ينِ ّ يفِ  لْ َ ِ   َن أيب بَررَ  بن ن ق   ألْ نْ َق ِيّ  َ ِي  ا  َنو",
+    "sequence": 24
   },
   {
     "id": 25,
     "text": "Ризқнинг ўн улушдан тўққиз улуши савдода, бир улуши чорвачиликдадир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 25-hadis",
-    "meaning": "Ризқнинг ўн улушдан тўққиз улуши савдода, бир улуши чорвачиликдадир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 25-hadis",
+    "source_note": "لس  طي يف  جلقمع  لضغ ً  ن نع   بن   د  لرمحن  ألروى معض",
+    "sequence": 25
   },
   {
     "id": 26,
     "text": "Кўрқоқ савдогар маҳрумдир, аммо жасоратли, қўрқмас савдогар ҳамма вақт ризқлангандир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 26-hadis",
-    "meaning": "Кўрқоқ савдогар маҳрумдир, аммо жасоратли, қўрқмас савдогар ҳамма вақт ризқлангандир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 26-hadis",
+    "source_note": "لْقُضَق ِي  ن أنس مرف  ق",
+    "sequence": 26
   },
   {
     "id": 27,
-    "text": "Тўғрисўз ва хиёнатсиз савдогар Пайғамбарлар, сиддиқлар ва шаҳидлар билан биргадир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 27-hadis",
-    "meaning": "Тўғрисўз ва хиёнатсиз савдогар Пайғамбарлар, сиддиқлар ва шаҳидлар билан биргадир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Тўғрисўз ва хиѐнатсиз савдогар Пайғамбарлар, сиддиқлар ва шаҳидлар билан биргадир.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 27-hadis",
+    "source_note": "لد  مي َ  وَ لدَّل \n ِّ ُطْين\n و للممي ٍ  َنْ أَيبِ  َعِ د",
+    "sequence": 27
   },
   {
     "id": 28,
     "text": "Ким ҳалол ризқ топаман деб, толиқиб тунаса гуноҳлари мағфират қилиниб тонг оттиради.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 28-hadis",
-    "meaning": "Ким ҳалол ризқ топаман деб, толиқиб тунаса гуноҳлари мағфират қилиниб тонг оттиради.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 28-hadis",
+    "source_note": "بن  سقكر  ن أنس",
+    "sequence": 28
   },
   {
     "id": 29,
-    "text": "Тонгги уйқу ризқни тўсади.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 29-hadis",
-    "meaning": "Тонгги уйқу ризқни тўсади.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Тонгги уйқу ризқни тўсади. Яъни: ялқовланиб, эрта билан кишилар савдо ишлари билан машғул бўлганда ухлаб ѐтувчи кишилар камбағал бўладилар демакдир.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 29-hadis",
+    "source_note": "و ه\nأمحد و ل  هق\nي َ  َنْ  ُ ْمَقنَ بْنِ  َفَّلقن",
+    "sequence": 29
   },
   {
     "id": 30,
     "text": "Қўй боқинглар, чунки у баракадир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 30-hadis",
-    "meaning": "Қўй боқинглар, чунки у баракадир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 30-hadis",
+    "source_note": "و ه  بن مقجو وأمحد",
+    "sequence": 30
   },
   {
     "id": 31,
     "text": "Сизларнинг бирингизга бирор томондан ризқ келиб туришини Аллоҳ таоло сабаб қилган бўлса, у ўзи ўзгармагунича ўша ишни тарк қилмасин.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 31-hadis",
-    "meaning": "Сизларнинг бирингизга бирор томондан ризқ келиб туришини Аллоҳ таоло сабаб қилган бўлса, у ўзи ўзгармагунича ўша ишни тарк қилмасин.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 31-hadis",
+    "source_note": "َوَ هُ أَمحَْدُ وَ بْنُ مَقجَو",
+    "sequence": 31
   },
   {
     "id": 32,
-    "text": "Ким бирор нарса билан ризқланган бўлса уни маҳкам тутсин!",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 32-hadis",
-    "meaning": "Ким бирор нарса билан ризқланган бўлса уни маҳкам тутсин!",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Ким бирор нарса билан ризқланган бўлса уни маҳкам тутсин! (Бир кишининг бир иш, ѐки касб ѐки бирор савдодан ризқи келиб турган бўлса, уни ташламасин шу ишида давом етсин!)",
+    "meaning": "",
+    "source": "101-hadis.pdf • 32-hadis",
+    "source_note": "Бир кишининг бир иш,  ѐки касб ѐки бирор савдодан \nризқи келиб турган бўлса, уни ташламасин шу ишида давом \nетсин!",
+    "sequence": 32
   },
   {
     "id": 33,
-    "text": "(Халқнинг асосий эҳтиёжи тушадиган ун, гўшт, ўтин кўмир кабиларни) бизнинг бозоримизга етказиб олиб келувчилар Аллоҳ йўлида жиҳод қилувчилар кабидир. (Аммо халқнинг эҳтиёжи тушадиган нарсаларни) баҳоси қиммат бўлганда сотаман, деб йиғиб қўювчилар Аллоҳнинг китобини инкор қилувчи даҳрийлар кабидир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 33-hadis",
-    "meaning": "(Халқнинг асосий эҳтиёжи тушадиган ун, гўшт, ўтин кўмир кабиларни) бизнинг бозоримизга етказиб олиб келувчилар Аллоҳ йўлида жиҳод қилувчилар кабидир. (Аммо халқнинг эҳтиёжи тушадиган нарсаларни) баҳоси қиммат бўлганда сотаман, деб йиғиб қўювчилар Аллоҳнинг китобини инкор қилувчи даҳрийлар кабидир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "(Халқнинг асосий эҳтиѐжи тушадиган ун, гўшт, ўтин кўмир кабиларни) бизнинг бозоримизга етказиб олиб келувчилар Аллоҳ йўлида жиҳод қилувчилар кабидир. (Аммо халқнинг эҳтиѐжи тушадиган нарсаларни) баҳоси қиммат бўлганда сотаман, деб йиғиб қўювчилар Аллоҳнинг китобини инкор қилувчи даҳрийлар кабидир.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 33-hadis",
+    "source_note": "Аммо \nхалқнинг эҳтиѐжи тушадиган нарсаларни",
+    "sequence": 33
   },
   {
     "id": 34,
     "text": "Ишини эътибор билан чиройли бажарган кишини Аллоҳ таоло яхши кўради.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 34-hadis",
-    "meaning": "Ишини эътибор билан чиройли бажарган кишини Аллоҳ таоло яхши кўради.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 34-hadis",
+    "source_note": "و ه\n لطرب ين  ن كس ب بن شهقب",
+    "sequence": 34
   },
   {
     "id": 35,
-    "text": "Бирор мусулмон киши экин экса ёки дарахт ўтқазса ундан бирорта қуш ёки одам ёки ҳайвон еса, бу ўша мусулмон учун садақа бўлади.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 35-hadis",
-    "meaning": "Бирор мусулмон киши экин экса ёки дарахт ўтқазса ундан бирорта қуш ёки одам ёки ҳайвон еса, бу ўша мусулмон учун садақа бўлади.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Бирор мусулмон киши экин экса ѐки дарахт ўтқазса ундан бирорта қуш ѐки одам ѐки ҳайвон еса, бу ўша мусулмон учун садақа бўлади.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 35-hadis",
+    "source_note": "و ه\n وأمحد  ن أىب  لد و ء",
+    "sequence": 35
   },
   {
     "id": 36,
     "text": "Сизлардан бирингиз арқонини олиб, сўнгра тоғга чиқиб, ўтин териб, кейин уни сотиб, пулини ейиши ва садақа қилиши, одамлардан тиланчилик қилиб сўрашидан яхшироқдир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 36-hadis",
-    "meaning": "Сизлардан бирингиз арқонини олиб, сўнгра тоғга чиқиб, ўтин териб, кейин уни сотиб, пулини ейиши ва садақа қилиши, одамлардан тиланчилик қилиб сўрашидан яхшироқдир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 36-hadis",
+    "source_note": "و ه  ل خق ي يف  ح حو  ن أيب ىرير",
+    "sequence": 36
   },
   {
     "id": 37,
     "text": "Тиланчилик фақат уч кишига ҳалол бўлади. Улар: хун тўловчи, оғир қарздор, ўта камбағал қашшоқ.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 37-hadis",
-    "meaning": "Тиланчилик фақат уч кишига ҳалол бўлади. Улар: хун тўловчи, оғир қарздор, ўта камбағал қашшоқ.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 37-hadis",
+    "source_note": "و ه أمحد  ن أنس بن مقلك",
+    "sequence": 37
   },
   {
     "id": 38,
-    "text": "Камбағалликдан, муҳтожликдан, бировга зулм қилишдан ёки бировдан зулм кўришдан Аллоҳ номи билан паноҳ беришини сўранглар!",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 38-hadis",
-    "meaning": "Камбағалликдан, муҳтожликдан, бировга зулм қилишдан ёки бировдан зулм кўришдан Аллоҳ номи билан паноҳ беришини сўранглар!",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Камбағалликдан, муҳтожликдан, бировга зулм қилишдан ѐки бировдан зулм кўришдан Аллоҳ номи билан паноҳ беришини сўранглар!",
+    "meaning": "",
+    "source": "101-hadis.pdf • 38-hadis",
+    "source_note": "َوَ هُ  لطَّل َبَرَ ينِ   َن   َقوَ  بن  ل َّلقمِت",
+    "sequence": 38
   },
   {
     "id": 39,
-    "text": "Эй Роббим! Камбағалликдан, ризқнинг озлигидан хорликдан, зулм қилишдан ёки бировдан зулм кўришдан ўз паноҳингда сақлашингни сўрайман.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 39-hadis",
-    "meaning": "Эй Роббим! Камбағалликдан, ризқнинг озлигидан хорликдан, зулм қилишдан ёки бировдан зулм кўришдан ўз паноҳингда сақлашингни сўрайман.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Эй Роббим! Камбағалликдан, ризқнинг озлигидан хорликдан, зулм қилишдан ѐки бировдан зулм кўришдан ўз паноҳингда сақлашингни сўрайман.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 39-hadis",
+    "source_note": "و ه  ل خق ي يف  ألوب  ملفرو وأمحد يف مسنده و  أب  و وو و لنسقئي يف  ننهمق و بن ح قن يف\n ح حو",
+    "sequence": 39
   },
   {
     "id": 40,
-    "text": "Аллоҳим! Сендан ҳидоят, тақво, поклик ва беҳожатликни сўрайман!",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 40-hadis",
-    "meaning": "Аллоҳим! Сендан ҳидоят, тақво, поклик ва беҳожатликни сўрайман!",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Аллоҳим! Сендан ҳидоят, тақво, поклик ва беҳожатликни сўрайман! Учинчи боб Мақтовли ахлоқга доир нарсалар",
+    "meaning": "",
+    "source": "101-hadis.pdf • 40-hadis",
+    "source_note": "و ه  ل خق ي يف  ألوب  ملفرو ومسس  وأمحد و للممي و بن مقجو ٍ َنْ  َ ْدِ  لسَّلوِ بْنِ مَسْعُ و",
+    "sequence": 40
   },
   {
     "id": 41,
     "text": "Мўминларнинг энг афзали хулқи гўзал бўлганидир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 41-hadis",
-    "meaning": "Мўминларнинг энг афзали хулқи гўзал бўлганидир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 41-hadis",
+    "source_note": "و ه أب  يَبَعْس َ َ  َنْ أَيبِ ىُرَيَبْر",
+    "sequence": 41
   },
   {
     "id": 42,
     "text": "Мўминларнинг иймон жиҳатидан энг комили хулқи энг гўзал бўлганидир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 42-hadis",
-    "meaning": "Мўминларнинг иймон жиҳатидан энг комили хулқи энг гўзал бўлганидир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 42-hadis",
+    "source_note": "َ َ و ه  لد  مي وأمحد  ب  و وو و للممي و بن ح قن  َنْ أَيبِ ىُرَيَبْر",
+    "sequence": 42
   },
   {
     "id": 43,
     "text": "Мўмин киши чиройли хулқи туфайли кечаси ибодат билан машғул бўлиб, кундузи рўза тутганлар даражасига эришур.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 43-hadis",
-    "meaning": "Мўмин киши чиройли хулқи туфайли кечаси ибодат билан машғул бўлиб, кундузи рўза тутганлар даражасига эришур.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 43-hadis",
+    "source_note": "َ َوَ هُ أَبُ  وَ وُوَ و \n بن ح قن َ َنْ  َقئِشَة - َ ِيَ  لسَّلوُ  َنَبْهَق",
+    "sequence": 43
   },
   {
     "id": 44,
     "text": "Фойдаси бўлмаган нарсани тарк қилиш кишининг исломи гўзаллигига далилдир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 44-hadis",
-    "meaning": "Фойдаси бўлмаган нарсани тарк қилиш кишининг исломи гўзаллигига далилдир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 44-hadis",
+    "source_note": "و ه  لطرب ين و ل  هقي  ن أيب ىرير",
+    "sequence": 44
   },
   {
     "id": 45,
     "text": "Аллоҳ таоло бандалари орасидан ғайратли бўлганини яхши кўради.",
-    "meaning": "Аллоҳ таоло бандалари орасидан ғайратли бўлганини яхши кўради.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 45-hadis",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 45-hadis",
+    "source_note": "و ه  لطرب ين \n ٍ َنْ  َسِيِّي بْنِ أَيبِ طَقلِب",
+    "sequence": 45
   },
   {
     "id": 46,
     "text": "Албатта Аллоҳ кечирувчидир, кечиримлини яхши кўради.",
-    "meaning": "Албатта Аллоҳ кечирувчидир, кечиримлини яхши кўради.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 46-hadis",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 46-hadis",
+    "source_note": "و ه إمقم  أل ظ\nأ ِب  حن فة يف مسنده و لطرب ين يف  ألو ئل و ل  هقي يف  نن  ل ربى  َنْ  َ ْدِ  لسَّلو\n ُبْنِ مَسْعُ وٍ  َ ِيَ  لسَّلوُ  َنْو",
+    "sequence": 46
   },
   {
     "id": 47,
     "text": "Аллоҳ таоло гўзалдир, гўзалликни яхши кўради.",
-    "meaning": "Аллоҳ таоло гўзалдир, гўзалликни яхши кўради.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 47-hadis",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 47-hadis",
+    "source_note": "و ه مسس وأمحد و بن ح قن و لطرب ين ٍ َنْ  َ ْدِ  اِ بْنِ مَسْعُ و",
+    "sequence": 47
   },
   {
     "id": 48,
     "text": "Ваъдаси устидан чиқиш иймондандир.",
-    "meaning": "Ваъдаси устидан чиқиш иймондандир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 48-hadis",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 48-hadis",
+    "source_note": "و ه  اقك  و لديسمي  ن  قئشة   ي  ا  نهق",
+    "sequence": 48
   },
   {
     "id": 49,
     "text": "Омонатдорлиги бўлмаган кишининг иймони йўқ, аҳдига вафо бўлмаган кишининг дини йўқ.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 49-hadis",
-    "meaning": "Омонатдорлиги бўлмаган кишининг иймони йўқ, аҳдига вафо бўлмаган кишининг дини йўқ.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 49-hadis",
+    "source_note": "ُرَوَااُ الْب َي ْ َقِيُّب وأحمد وابن حبان وال براني عَنْ أَنَ ٍم رَضِيَ اللَّهُ عَنْه",
+    "sequence": 49
   },
   {
     "id": 50,
-    "text": "Ҳаё иймондандир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 50-hadis",
-    "meaning": "Ҳаё иймондандир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Ҳаѐ иймондандир.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 50-hadis",
+    "source_note": "متفق  س و",
+    "sequence": 50
   },
   {
     "id": 51,
     "text": "Ким раҳм қилмаса унга ҳам раҳм қилинмайди.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 51-hadis",
-    "meaning": "Ким раҳм қилмаса унга ҳам раҳм қилинмайди.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 51-hadis",
+    "source_note": "ِمُتَبَّلفَقٌ  َسَ ْو \n َ َ َنْ أَيبِ ىُرَيَبْر",
+    "sequence": 51
   },
   {
     "id": 52,
     "text": "Сўзлар ичида Аллоҳга энг суюклиси тўғрисидир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 52-hadis",
-    "meaning": "Сўзлар ичида Аллоҳга энг суюклиси тўғрисидир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 52-hadis",
+    "source_note": "",
+    "sequence": 52
   },
   {
     "id": 53,
     "text": "Садақалар ичида бирортаси тўғри сўзчалик Аллоҳга суюкли эмас.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 53-hadis",
-    "meaning": "Садақалар ичида бирортаси тўғри сўзчалик Аллоҳга суюкли эмас.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 53-hadis",
+    "source_note": "ل  هقي  ن أيب ىرير",
+    "sequence": 53
   },
   {
     "id": 54,
     "text": "Аллоҳ барча ишда мулойимликни севади.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 54-hadis",
-    "meaning": "Аллоҳ барча ишда мулойимликни севади.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 54-hadis",
+    "source_note": "و ه  ل خق ي ومسس  و للممي َ  َنْ  َقئِشَة",
+    "sequence": 54
   },
   {
     "id": 55,
     "text": "Мен яхши хулқларни баркамол этиш учун (пайғамбар қилиб) юборилдим.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 55-hadis",
-    "meaning": "Мен яхши хулқларни баркамол этиш учун (пайғамбар қилиб) юборилдим.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 55-hadis",
+    "source_note": "пайғамбар \nқилиб",
+    "sequence": 55
   },
   {
     "id": 56,
     "text": "Агар (бандалигингга бориб) бирор гуноҳ содир этсанг, унинг орқасидан уни ювиб юборадиган бир яхши иш қил!",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 56-hadis",
-    "meaning": "Агар (бандалигингга бориб) бирор гуноҳ содир этсанг, унинг орқасидан уни ювиб юборадиган бир яхши иш қил!",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 56-hadis",
+    "source_note": "бандалигингга бориб",
+    "sequence": 56
   },
   {
     "id": 57,
     "text": "Аллоҳ таолога осий бўлинадиган ишда бирор кишига итоат қилинмайди.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 57-hadis",
-    "meaning": "Аллоҳ таолога осий бўлинадиган ишда бирор кишига итоат қилинмайди.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 57-hadis",
+    "source_note": "و ه أَمحد و لطرب ين  َنِ  اَْ َ َ بْنَ  َمْرٍو و ٍْ َ ُ ِمْرَ نُ بْنُ ح",
+    "sequence": 57
   },
   {
     "id": 58,
     "text": "Тўғри йўлда юр! Одамларга хулқинг чиройли бўлсин!",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 58-hadis",
-    "meaning": "Тўғри йўлда юр! Одамларга хулқинг чиройли бўлсин!",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 58-hadis",
+    "source_note": "، لطرب ين و ل  هق\nي\n  ن  بن  مرو",
+    "sequence": 58
   },
   {
     "id": 59,
     "text": "Бузуқлик ва бузуқликни қасд қилиш исломдан эмас. Одамлар ичида исломи энг чиройли бўлган киши хулқи энг чиройли бўлганидир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 59-hadis",
-    "meaning": "Бузуқлик ва бузуқликни қасд қилиш исломдан эмас. Одамлар ичида исломи энг чиройли бўлган киши хулқи энг чиройли бўлганидир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 59-hadis",
+    "source_note": "و ه أَمحد و لطرب ين  َنْ جَقبِرِ بْنِ َسَُرَ َ   ي  ا  نو",
+    "sequence": 59
   },
   {
     "id": 60,
-    "text": "Аллоҳим! Яратилишимни чиройли қилганингдек хулқимни ҳам чиройли қил!",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 60-hadis",
-    "meaning": "Аллоҳим! Яратилишимни чиройли қилганингдек хулқимни ҳам чиройли қил!",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Аллоҳим! Яратилишимни чиройли қилганингдек хулқимни ҳам чиройли қил! Учинчи боб Ёмон хулқларга доир",
+    "meaning": "",
+    "source": "101-hadis.pdf • 60-hadis",
+    "source_note": "ُ َوَ هُ أَمحَْد",
+    "sequence": 60
   },
   {
     "id": 61,
-    "text": "Ёлғондан сақланинглар! Чунки ёлғон иймондан узоқдир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 61-hadis",
-    "meaning": "Ёлғондан сақланинглар! Чунки ёлғон иймондан узоқдир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Ёлғондан сақланинглар! Чунки ѐлғон иймондан узоқдир. Яъни, ѐлғон билан иймон иккови бир кишида жамланмайди.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 61-hadis",
+    "source_note": "ٍ و ه أمحد و ل  هقي  َنْ  َبَ ْسِ بْنِ أَيبِ حَقرِم",
+    "sequence": 61
   },
   {
     "id": 62,
-    "text": "Макр, алдов ва хиёнат жаҳаннамдадир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 62-hadis",
-    "meaning": "Макр, алдов ва хиёнат жаҳаннамдадир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Макр, алдов ва хиѐнат жаҳаннамдадир.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 62-hadis",
+    "source_note": "",
+    "sequence": 62
   },
   {
     "id": 63,
     "text": "Собр (аччиқ ўсимлик) асални қанчалик бузса ҳасад ҳам иймонни шунчалик бузади.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 63-hadis",
-    "meaning": "Собр (аччиқ ўсимлик) асални қанчалик бузса ҳасад ҳам иймонни шунчалик бузади.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 63-hadis",
+    "source_note": "аччиқ ўсимлик",
+    "sequence": 63
   },
   {
     "id": 64,
     "text": "Ҳасад қилувчи, гап ташувчи-чақимчи ва ғойбдан хабар берувчи фолбин мендан эмас, мен ҳам ундан эмасман.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 64-hadis",
-    "meaning": "Ҳасад қилувчи, гап ташувчи-чақимчи ва ғойбдан хабар берувчи фолбин мендан эмас, мен ҳам ундан эмасман.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 64-hadis",
+    "source_note": "و ه ٍ لطرب ين  َن  َ ْد  لسَّلوِ بْنَ بُسْر",
+    "sequence": 64
   },
   {
     "id": 65,
-    "text": "Мусулмонни алдаган ёки унга бир зарар етказган ёки унга бирор макр-ҳийла ишлатган биздан эмас.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 65-hadis",
-    "meaning": "Мусулмонни алдаган ёки унга бир зарар етказган ёки унга бирор макр-ҳийла ишлатган биздан эмас.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Мусулмонни алдаган ѐки унга бир зарар етказган ѐки унга бирор макр-ҳийла ишлатган биздан эмас.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 65-hadis",
+    "source_note": "و ه ّ لرَّل فِعِيّ  َن  َسي",
+    "sequence": 65
   },
   {
     "id": 66,
     "text": "Бир бирингиз билан “Сенга Аллоҳнинг лаънати бўлсин”, “Аллоҳнинг ғазабига дучор бўл”, \"Жойинг жаҳаннамда бўлсин\" каби сўзлар билан лаънатлашманглар!",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 66-hadis",
-    "meaning": "Бир бирингиз билан “Сенга Аллоҳнинг лаънати бўлсин”, “Аллоҳнинг ғазабига дучор бўл”, \"Жойинг жаҳаннамда бўлсин\" каби сўзлар билан лаънатлашманглар!",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 66-hadis",
+    "source_note": "ٍ َوَ هُ  لتَبِّيرْمِمِي  وَأَبُ  وَ وُوَ  َنْ َسَُرَ َ بْنِ جُنْدُب \n ُ َ ِيَ  لسَّلوُ  َنْو",
+    "sequence": 66
   },
   {
     "id": 67,
     "text": "Исломда уч кундан аразлашиш йўқ.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 67-hadis",
-    "meaning": "Исломда уч кундан аразлашиш йўқ.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 67-hadis",
+    "source_note": "ملنقوي  ن أيب ىرير ،\n َح  م  َن أيب ىُرَيَبْر",
+    "sequence": 67
   },
   {
     "id": 68,
     "text": "Кимки биродари билан бир йил аразлашиб юрса унинг қонини тўккани кабидир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 68-hadis",
-    "meaning": "Кимки биродари билан бир йил аразлашиб юрса унинг қонини тўккани кабидир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 68-hadis",
+    "source_note": "و ه  ل خق ي يف  ألوب  ملفرو وأمحد وأب  و وو  َنْ أَيبِ خِرَ اٍ  لس سَمِيِّي",
+    "sequence": 68
   },
   {
     "id": 69,
     "text": "Кимки бир мўминни сен кофирсан, деб айбласа, уни ўлдиргани кабидир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 69-hadis",
-    "meaning": "Кимки бир мўминни сен кофирсан, деб айбласа, уни ўлдиргани кабидир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 69-hadis",
+    "source_note": "و ه  لطرب ين ُ َنْ ىِشَقمِ بْنِ  َقمِرٍ  َ ِيَ  اُ  َنْو",
+    "sequence": 69
   },
   {
     "id": 70,
     "text": "Мусулмонни сўкиш фосиқлик у билан уришиш кофирликдир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 70-hadis",
-    "meaning": "Мусулмонни сўкиш фосиқлик у билан уришиш кофирликдир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 70-hadis",
+    "source_note": "ِمُتَبَّلفَقٌ  َسَ ْو",
+    "sequence": 70
   },
   {
     "id": 71,
     "text": "Мусулмонларнинг энг яхшиси, мусулмонлар унинг тили ва қўлидан омонда бўлган кишидир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 71-hadis",
-    "meaning": "Мусулмонларнинг энг яхшиси, мусулмонлар унинг тили ва қўлидан омонда бўлган кишидир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 71-hadis",
+    "source_note": "و ه\nمسس   ن  بن  مرو",
+    "sequence": 71
   },
   {
     "id": 72,
     "text": "Ҳар бир эшитган нарсани гапиравериш кишининг гуноҳкор эканига кифоя қилади.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 72-hadis",
-    "meaning": "Ҳар бир эшитган нарсани гапиравериш кишининг гуноҳкор эканига кифоя қилади.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 72-hadis",
+    "source_note": "و ه\nأب  و وو و \n بن ح قن  ن أيب ىرير",
+    "sequence": 72
   },
   {
     "id": 73,
     "text": "Кофир бўлса ҳам мазлумнинг дуосидан сақланинглар! Чунки унинг дуосининг олдида парда йўқ.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 73-hadis",
-    "meaning": "Кофир бўлса ҳам мазлумнинг дуосидан сақланинглар! Чунки унинг дуосининг олдида парда йўқ.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 73-hadis",
+    "source_note": "و ه أمحد  ن أنس",
+    "sequence": 73
   },
   {
     "id": 74,
     "text": "Агар сизлардан бирингиз ғазабланса сукут қилсин!",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 74-hadis",
-    "meaning": "Агар сизлардан бирингиз ғазабланса сукут қилсин!",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 74-hadis",
+    "source_note": "أَمحَْدُ  ن  بن   ق",
+    "sequence": 74
   },
   {
     "id": 75,
     "text": "Кимки талон тарож ва босқичилик қилса биздан эмас.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 75-hadis",
-    "meaning": "Кимки талон тарож ва босқичилик қилса биздан эмас.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 75-hadis",
+    "source_note": "ٍوَ َوَى أَمحَْدُ، وَ لتَبِّيرْمِمِي   َنْ أَنَس",
+    "sequence": 75
   },
   {
     "id": 76,
     "text": "Сўзида фаҳш бўлган ва ўзига фаҳшни лозим кўрган кишига Аллоҳ ғазаб қилади.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 76-hadis",
-    "meaning": "Сўзида фаҳш бўлган ва ўзига фаҳшни лозим кўрган кишига Аллоҳ ғазаб қилади.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 76-hadis",
+    "source_note": "و ه  بن ح قن  ن ٍأُ َقمَةَ بْنَ رَيْد",
+    "sequence": 76
   },
   {
     "id": 77,
-    "text": "Қиёматда Аллоҳнинг олдида манзилати энг ёмон бўлган киши бу дунёда одамлар унинг ёмонлигидан қўрққан кишидир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 77-hadis",
-    "meaning": "Қиёматда Аллоҳнинг олдида манзилати энг ёмон бўлган киши бу дунёда одамлар унинг ёмонлигидан қўрққан кишидир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Қиѐматда Аллоҳнинг олдида манзилати энг ѐмон бўлган киши бу дунѐда одамлар унинг ѐмонлигидан қўрққан кишидир.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 77-hadis",
+    "source_note": "ٍ َوَ هُ  لطَّل َبَرَ ينِ   َنْ أَنَسِ بْنِ مَقلِك",
+    "sequence": 77
   },
   {
     "id": 78,
-    "text": "Ким, одамлар уни кутиб олишганида ҳурмат юзасидан тик туришларини яхши кўрса жойини дўзахдан тайёрлаб қўяверсин!",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 78-hadis",
-    "meaning": "Ким, одамлар уни кутиб олишганида ҳурмат юзасидан тик туришларини яхши кўрса жойини дўзахдан тайёрлаб қўяверсин!",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Ким, одамлар уни кутиб олишганида ҳурмат юзасидан тик туришларини яхши кўрса жойини дўзахдан тайѐрлаб қўяверсин!",
+    "meaning": "",
+    "source": "101-hadis.pdf • 78-hadis",
+    "source_note": "ِ َوَ هُ  لطَّل َبَرَ ين \n  َنْ  َمْرِو بْنِ مُرَّل َ  جلُْهَينِِّي",
+    "sequence": 78
   },
   {
     "id": 79,
-    "text": "Бало айтилган сўзга юклаб қўйилгандир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 79-hadis",
-    "meaning": "Бало айтилган сўзга юклаб қўйилгандир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Бало айтилган сўзга юклаб қўйилгандир. Яъни, одамнинг бошига ҳар қандай бало келса тили орқали гапирган сўзидан келади.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 79-hadis",
+    "source_note": "و ه ُ لقضق ي  َنْ  َسِيٍّي  َ ِيَ  لسَّلوُ  َنْو",
+    "sequence": 79
   },
   {
     "id": 80,
-    "text": "Аллоҳим! Сенинг номинг билан қайғу-ҳасратдан, хафаликдан, ожизлик ва ялқовликдан, бахиллик ва қўрқоқликдан, қарзнинг оғирлигидан ва ноҳақ одамларнинг ғолиб бўлишидан ўз паноҳингда сақлашингни сўрайман.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 80-hadis",
-    "meaning": "Аллоҳим! Сенинг номинг билан қайғу-ҳасратдан, хафаликдан, ожизлик ва ялқовликдан, бахиллик ва қўрқоқликдан, қарзнинг оғирлигидан ва ноҳақ одамларнинг ғолиб бўлишидан ўз паноҳингда сақлашингни сўрайман.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Аллоҳим! Сенинг номинг билан қайғу-ҳасратдан, хафаликдан, ожизлик ва ялқовликдан, бахиллик ва қўрқоқликдан, қарзнинг оғирлигидан ва ноҳақ одамларнинг ғолиб бўлишидан ўз паноҳингда сақлашингни сўрайман. Бешинчи боб Одамлар билан чиройли муомала қилиш ва ўзаро дўст бўлишга доир",
+    "meaning": "",
+    "source": "101-hadis.pdf • 80-hadis",
+    "source_note": "متفق  سي\nه",
+    "sequence": 80
   },
   {
     "id": 81,
     "text": "Одамларнинг энг яхшиси одамларга энг манфаатли бўлганидир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 81-hadis",
-    "meaning": "Одамларнинг энг яхшиси одамларга энг манфаатли бўлганидир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 81-hadis",
+    "source_note": "و ه\n لْقُضَق ِي  َن جَقبر",
+    "sequence": 81
   },
   {
     "id": 82,
     "text": "Ўзинг учун раво кўрган нарсани бошқа кишилар учун ҳам раво кўр!",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 82-hadis",
-    "meaning": "Ўзинг учун раво кўрган нарсани бошқа кишилар учун ҳам раво кўр!",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 82-hadis",
+    "source_note": "ٍ و ه أمحد و لطرب ين و ل  هقي  ن يَزِيدَ بْنِ أَ َد",
+    "sequence": 82
   },
   {
     "id": 83,
-    "text": "Банда (Қиёмат куни) ўзининг яхши кўрган кишиси билан биргадир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 83-hadis",
-    "meaning": "Банда (Қиёмат куни) ўзининг яхши кўрган кишиси билан биргадир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Банда (Қиѐмат куни) ўзининг яхши кўрган кишиси билан биргадир.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 83-hadis",
+    "source_note": "Қиѐмат куни",
+    "sequence": 83
   },
   {
     "id": 84,
-    "text": "Ким қайси қавмни яхши кўрса Аллоҳ (қиёмат куни) уни ўша қавм ичида тирилтиради.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 84-hadis",
-    "meaning": "Ким қайси қавмни яхши кўрса Аллоҳ (қиёмат куни) уни ўша қавм ичида тирилтиради.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Ким қайси қавмни яхши кўрса Аллоҳ (қиѐмат куни) уни ўша қавм ичида тирилтиради.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 84-hadis",
+    "source_note": "қиѐмат куни",
+    "sequence": 84
   },
   {
     "id": 85,
     "text": "Одамлар билан муроса қилиш садақадир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 85-hadis",
-    "meaning": "Одамлар билан муроса қилиш садақадир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 85-hadis",
+    "source_note": "و ه ِ بن ح قن و لطرب ين و ل  هقي  َنْ جَقبِرِ بْنِ  َ ْدِ  لسَّلو",
+    "sequence": 85
   },
   {
     "id": 86,
     "text": "(Ҳар бир кишига ўзининг даражасига қараб ҳурмат) ўзига муночиб жойга ўтқазинглар.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 86-hadis",
-    "meaning": "(Ҳар бир кишига ўзининг даражасига қараб ҳурмат) ўзига муночиб жойга ўтқазинглар.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 86-hadis",
+    "source_note": "Ҳар бир кишига ўзининг даражасига қараб ҳурмат",
+    "sequence": 86
   },
   {
     "id": 87,
-    "text": "(Қариндош ва дўстларингни) камроқ зиёрат қил, шунда муҳаббат ортади. Изоҳ: Ҳар кун зиёрат қилиб кўришилаверса кўнгил қайтиб, муҳаббат камая бошлайди.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 87-hadis",
-    "meaning": "(Қариндош ва дўстларингни) камроқ зиёрат қил, шунда муҳаббат ортади. Изоҳ: Ҳар кун зиёрат қилиб кўришилаверса кўнгил қайтиб, муҳаббат камая бошлайди.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "(Қариндош ва дўстларингни) камроқ зиѐрат қил, шунда муҳаббат ортади. Изоҳ: Ҳар кун зиѐрат қилиб кўришилаверса кўнгил қайтиб, муҳаббат камая бошлайди.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 87-hadis",
+    "source_note": "Қариндош ва дўстларингни",
+    "sequence": 87
   },
   {
     "id": 88,
     "text": "Сизларга қўшниларингиз билан яхши муносабатда бўлишингизни васият қиламан.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 88-hadis",
-    "meaning": "Сизларга қўшниларингиз билан яхши муносабатда бўлишингизни васият қиламан.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 88-hadis",
+    "source_note": "و ه  لطرب ين  ن أيب أُمَقمَة",
+    "sequence": 88
   },
   {
     "id": 89,
-    "text": "Қўшниси унинг ёмонлигидан хотиржам бўлмаган киши ҳақиқий мўмин эмас.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 89-hadis",
-    "meaning": "Қўшниси унинг ёмонлигидан хотиржам бўлмаган киши ҳақиқий мўмин эмас.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Қўшниси унинг ѐмонлигидан хотиржам бўлмаган киши ҳақиқий мўмин эмас.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 89-hadis",
+    "source_note": "رواا\nال بران \n  عن  َلْق بن ع",
+    "sequence": 89
   },
   {
     "id": 90,
-    "text": "Аллоҳ йўлида бир-бирини яхши кўриб дўстлашганлар Қиёмат куни аршнинг соясида бўладилар.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 90-hadis",
-    "meaning": "Аллоҳ йўлида бир-бирини яхши кўриб дўстлашганлар Қиёмат куни аршнинг соясида бўладилар.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Аллоҳ йўлида бир-бирини яхши кўриб дўстлашганлар Қиѐмат куни аршнинг соясида бўладилар.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 90-hadis",
+    "source_note": "ٍ و ه  لطرب ين  َنْ مُعَق ِ بْنِ جَ َل",
+    "sequence": 90
   },
   {
     "id": 91,
     "text": "Аллоҳга иймон келтиргандан кейинги амалларниг энг афзали одамлар билан дўстона муносабатда бўлишдир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 91-hadis",
-    "meaning": "Аллоҳга иймон келтиргандан кейинги амалларниг энг афзали одамлар билан дўстона муносабатда бўлишдир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 91-hadis",
+    "source_note": "و ه َ َ لطرب ين  َنْ أَيبِ ىُرَيَبْر",
+    "sequence": 91
   },
   {
     "id": 92,
-    "text": "Ўз ораларингизда саломни ёйинглар, шунда бир-бирингизни билан муҳаббатли бўласизлар.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 92-hadis",
-    "meaning": "Ўз ораларингизда саломни ёйинглар, шунда бир-бирингизни билан муҳаббатли бўласизлар.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Ўз ораларингизда саломни ѐйинглар, шунда бир-бирингизни билан муҳаббатли бўласизлар.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 92-hadis",
+    "source_note": "َ  ُ َوَ هُ  اَْقكِ ُ  َنْ أَيبِ م",
+    "sequence": 92
   },
   {
     "id": 93,
-    "text": "Мактубга жавоб ёзиш саломга алик қайтариш каби мажбуриятдир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 93-hadis",
-    "meaning": "Мактубга жавоб ёзиш саломга алик қайтариш каби мажбуриятдир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Мактубга жавоб ѐзиш саломга алик қайтариш каби мажбуриятдир.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 93-hadis",
+    "source_note": "رواا أبو نعي  عن أن",
+    "sequence": 93
   },
   {
     "id": 94,
     "text": "Биродарларининг олдида пешонасини тириштириб, қовоғини солиб турувчи кишидан Аллоҳ ғазабланади.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 94-hadis",
-    "meaning": "Биродарларининг олдида пешонасини тириштириб, қовоғини солиб турувчи кишидан Аллоҳ ғазабланади.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 94-hadis",
+    "source_note": "ُ َوَى  لدَّليَبْسَمِي  يفِ مُسْنَدِ  لْفِرْوَوْ ِ  َنْ  َسِيٍّي  َ ِيَ  لسَّلوُ  َنْو",
+    "sequence": 94
   },
   {
     "id": 95,
-    "text": "Ночор аҳволга тушиб қолган кишиларга ёрдам берганни албатта Аллоҳ яхши кўради.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 95-hadis",
-    "meaning": "Ночор аҳволга тушиб қолган кишиларга ёрдам берганни албатта Аллоҳ яхши кўради.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Ночор аҳволга тушиб қолган кишиларга ѐрдам берганни албатта Аллоҳ яхши кўради.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 95-hadis",
+    "source_note": "و ه  بْن  سقكر  ن أيب ىرير",
+    "sequence": 95
   },
   {
     "id": 96,
-    "text": "Меҳмонни қабул қилмасдан ҳурмат қилмаган қавм бунча ҳам ёмон қавмдир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 96-hadis",
-    "meaning": "Меҳмонни қабул қилмасдан ҳурмат қилмаган қавм бунча ҳам ёмон қавмдир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Меҳмонни қабул қилмасдан ҳурмат қилмаган қавм бунча ҳам ѐмон қавмдир.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 96-hadis",
+    "source_note": "و ه  ل  هقي\n ن  ق ة بن  قمر",
+    "sequence": 96
   },
   {
     "id": 97,
-    "text": "Ота онасига яхшилик қилиб (уларнинг розилигини топишга ҳаракат қилган) кишига яхшилик бўлсин, Аллоҳ умрини зиёда қилсин!",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 97-hadis",
-    "meaning": "Ота онасига яхшилик қилиб (уларнинг розилигини топишга ҳаракат қилган) кишига яхшилик бўлсин, Аллоҳ умрини зиёда қилсин!",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Ота онасига яхшилик қилиб (уларнинг розилигини топишга ҳаракат қилган) кишига яхшилик бўлсин, Аллоҳ умрини зиѐда қилсин!",
+    "meaning": "",
+    "source": "101-hadis.pdf • 97-hadis",
+    "source_note": "уларнинг розилигини \nтопишга ҳаракат қилган",
+    "sequence": 97
   },
   {
     "id": 98,
-    "text": "Мўмин мўмин бир бирини ушлаб турадиган бино кабидир. Изоҳ: Бинодаги ёғоч ва ғиштлар бир бирини қандай ушлаб турса, мўминлар ҳам бир бирларини шундай қувватлашлари лозим.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 98-hadis",
-    "meaning": "Мўмин мўмин бир бирини ушлаб турадиган бино кабидир. Изоҳ: Бинодаги ёғоч ва ғиштлар бир бирини қандай ушлаб турса, мўминлар ҳам бир бирларини шундай қувватлашлари лозим.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Мўмин мўмин бир бирини ушлаб турадиган бино кабидир. Изоҳ: Бинодаги ѐғоч ва ғиштлар бир бирини қандай ушлаб турса, мўминлар ҳам бир бирларини шундай қувватлашлари лозим.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 98-hadis",
+    "source_note": "ُمُتَبَّلفَقٌ  َسَ ْوِ  َنْ أَيبِ مُ  َ   َ ِيَ  لسَّلوُ  َنْو",
+    "sequence": 98
   },
   {
     "id": 99,
     "text": "Мусулмонлар ҳаммаси бир бири билан биродардир. Бирининг биридан афзаллиги фақат тақво биландир.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 99-hadis",
-    "meaning": "Мусулмонлар ҳаммаси бир бири билан биродардир. Бирининг биридан афзаллиги фақат тақво биландир.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "meaning": "",
+    "source": "101-hadis.pdf • 99-hadis",
+    "source_note": "ِ َوَ هُ  لطَّل َبَرَ ين",
+    "sequence": 99
   },
   {
     "id": 100,
-    "text": "Мен сендан покиза ҳаётни, роҳатли ўлимни, охиратда хор ва шарманда бўлмасликни сўрайман.",
-    "source_short": "101-hadis.pdf",
-    "source_full": "101-hadis.pdf — 100-hadis",
-    "meaning": "Мен сендан покиза ҳаётни, роҳатли ўлимни, охиратда хор ва шарманда бўлмасликни сўрайман.",
-    "grade": "Manba PDFda alohida daraja ko‘rsatilmagan"
+    "text": "Мен сендан покиза ҳаѐтни, роҳатли ўлимни, охиратда хор ва шарманда бўлмасликни сўрайман.",
+    "meaning": "",
+    "source": "101-hadis.pdf • 100-hadis",
+    "source_note": "لطرب ين\n ن   د  ا  بن  َمرو",
+    "sequence": 100
   }
 ]

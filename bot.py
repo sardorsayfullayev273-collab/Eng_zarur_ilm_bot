@@ -90,6 +90,7 @@ async def db_init():
                 points INTEGER NOT NULL DEFAULT 0,
                 last_learned DATE,
                 notifications BOOLEAN NOT NULL DEFAULT TRUE,
+                last_daily_sent DATE,
                 ref_code TEXT UNIQUE,
                 referred_by BIGINT REFERENCES users(id) ON DELETE SET NULL
             )
@@ -121,6 +122,7 @@ async def db_init():
         """)
         # Safe migrations for already-created databases.
         await c.execute("ALTER TABLE users ADD COLUMN IF NOT EXISTS referred_by BIGINT REFERENCES users(id) ON DELETE SET NULL")
+        await c.execute("ALTER TABLE users ADD COLUMN IF NOT EXISTS last_daily_sent DATE")
 
 
 async def ensure_user_data(tg_user, referred_by=None):
@@ -154,8 +156,8 @@ async def next_hadith(uid):
         )
     last = int(row["hadith_id"]) if row else 0
     if last >= MAX_HADITH:
-        return HMAP.get(1)
-    return HMAP.get(last + 1) or HMAP.get(1)
+        return None
+    return HMAP.get(last + 1)
 
 
 async def current_hadith(uid):
@@ -203,6 +205,7 @@ def card_text(h):
 async def send_hadith(chat_id, context, uid):
     h = await current_hadith(uid)
     if not h:
+        await context.bot.send_message(chat_id, "🎉 Siz hozircha mavjud 100 ta hadisning barchasini o‘qib bo‘ldingiz. Keyingi manba qo‘shilgach, ketma-ketlik davom etadi.")
         return
     kb = InlineKeyboardMarkup([
         [
@@ -221,7 +224,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             ref_id = int(context.args[0].split("_", 1)[1])
         except ValueError:
             ref_id = None
-    await ensure_user_data(u, ref_id)
+    row = await ensure_user_data(u, ref_id)
     if WEBAPP_URL:
         try:
             await context.bot.set_chat_menu_button(
@@ -231,14 +234,21 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         except Exception:
             pass
     await update.message.reply_text(
-        "Assalomu alaykum! 🌙\n\n<b>Eng zarur ilm</b> — hadis, ma’no va foydali odatlarni bir joyda kuzatib boring.",
+        "Assalomu alaykum! 🌙\n\n<b>ENG ZARUR ILM</b>\nHar bir hadis — yaxshilik sari qadam.\n\nAvval o‘zingiz uchun mos rejimni tanlang:",
         parse_mode="HTML",
+        reply_markup=InlineKeyboardMarkup([[
+            InlineKeyboardButton("👧 Bolalar uchun", callback_data="aud:children"),
+            InlineKeyboardButton("👨 Kattalar uchun", callback_data="aud:adults"),
+        ]]),
+    )
+    await update.message.reply_text(
+        "Quyidagi menyu orqali hadis, statistika, reyting va Mini Appdan foydalanishingiz mumkin.",
         reply_markup=reply_keyboard(),
     )
     if WEBAPP_URL:
         await update.message.reply_text(
-            "⬇️ Mini App orqali barcha imkoniyatlarni oching:",
-            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📱 Mini Appni ochish", web_app=WebAppInfo(WEBAPP_URL))]]),
+            "✨ To‘liq premium imkoniyatlar:",
+            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📱 Premium Mini Appni ochish", web_app=WebAppInfo(WEBAPP_URL))]]),
         )
 
 
@@ -247,6 +257,18 @@ async def callback_button(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await q.answer()
     uid = q.from_user.id
     data = q.data or ""
+    if data.startswith("aud:"):
+        audience = data.split(":", 1)[1]
+        if audience not in {"children", "adults"}:
+            return
+        async with pool.acquire() as c:
+            await c.execute("UPDATE users SET audience=$2,last_seen=now() WHERE id=$1", uid, audience)
+        label = "Bolalar rejimi 👧" if audience == "children" else "Kattalar rejimi 👨"
+        await q.edit_message_text(f"✅ {label} tanlandi.\n\n📖 Birinchi hadis tayyor.")
+        await send_hadith(uid, context, uid)
+        async with pool.acquire() as c:
+            await c.execute("UPDATE users SET last_daily_sent=$2 WHERE id=$1", uid, now().date())
+        return
     if data.startswith("learn:"):
         hid = int(data.split(":", 1)[1])
         ok = await mark_learned(uid, hid)
@@ -254,7 +276,7 @@ async def callback_button(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await q.edit_message_reply_markup(reply_markup=None)
         except Exception:
             pass
-        await q.message.reply_text("✅ Bilib oldim — saqlandi!" if ok else "ℹ️ Bu hadis avval saqlangan.")
+        await q.message.reply_text("✅ Bilib oldim — saqlandi! 🔥" if ok else "ℹ️ Bu hadis avval saqlangan.")
 
 
 async def text_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -359,7 +381,7 @@ async def api_me(request: Request):
     await ensure_user_data(type("TG", (), u)())
     async with pool.acquire() as c:
         r = await c.fetchrow(
-            "SELECT id,username,first_name,last_name,audience,streak,points,last_learned,notifications,ref_code FROM users WHERE id=$1",
+            "SELECT id,username,first_name,last_name,audience,streak,points,last_learned,notifications,ref_code,last_daily_sent FROM users WHERE id=$1",
             int(u["id"]),
         )
         total = await c.fetchval("SELECT count(*) FROM learned WHERE user_id=$1", int(u["id"]))
@@ -381,6 +403,26 @@ async def api_learn(hid: int, request: Request):
     u = user_from_request(request)
     return {"saved": await mark_learned(int(u["id"]), hid)}
 
+
+@app.get("/api/stats")
+async def api_stats(request: Request):
+    u = user_from_request(request)
+    uid = int(u["id"])
+    today = now().date()
+    week_start = today - timedelta(days=6)
+    async with pool.acquire() as c:
+        rows = await c.fetch(
+            "SELECT learned_on,count(*) AS n FROM learned WHERE user_id=$1 AND learned_on BETWEEN $2 AND $3 GROUP BY learned_on ORDER BY learned_on",
+            uid, week_start, today,
+        )
+        total = await c.fetchval("SELECT count(*) FROM learned WHERE user_id=$1", uid)
+        r = await c.fetchrow("SELECT streak,points FROM users WHERE id=$1", uid)
+    counts = {str(x["learned_on"]): int(x["n"]) for x in rows}
+    days = []
+    for i in range(7):
+        d = week_start + timedelta(days=i)
+        days.append({"date": str(d), "count": counts.get(str(d), 0)})
+    return {"total": int(total), "streak": int(r["streak"] or 0), "points": int(r["points"] or 0), "days": days}
 
 @app.get("/api/rating")
 async def api_rating(request: Request):
@@ -470,11 +512,14 @@ async def api_settings(request: Request):
 
 
 async def daily_job(ctx: ContextTypes.DEFAULT_TYPE):
+    today = now().date()
     async with pool.acquire() as c:
-        rows = await c.fetch("SELECT id FROM users WHERE notifications=true")
+        rows = await c.fetch("SELECT id FROM users WHERE notifications=true AND (last_daily_sent IS NULL OR last_daily_sent <> $1)", today)
     for row in rows:
         try:
             await send_hadith(row["id"], ctx, row["id"])
+            async with pool.acquire() as c:
+                await c.execute("UPDATE users SET last_daily_sent=$2,last_seen=now() WHERE id=$1", row["id"], today)
         except Exception:
             pass
         await asyncio.sleep(0.03)
