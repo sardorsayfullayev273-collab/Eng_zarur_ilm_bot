@@ -154,7 +154,7 @@ def make_hadith_card(h):
 
         d.text(
             (540, box_top + 20),
-            "HADIS MA’NOSI",
+            "HADIS MA'NOSI",
             font=font(23, True),
             fill=DARK_GREEN,
             anchor="ma"
@@ -197,7 +197,7 @@ def make_hadith_card(h):
     # Yangi footer
     d.text(
         (540, 1000),
-        "Hadis ilmini o‘rganishda niyatingiz to‘g‘ri bo‘lsin.",
+        "Hadis ilmini o'rganishda niyatingiz to'g'ri bo'lsin.",
         font=font(20, True),
         fill=DARK_GREEN,
         anchor="ma"
@@ -205,7 +205,7 @@ def make_hadith_card(h):
 
     d.text(
         (540, 1030),
-        "Tahoratli holda o‘qisangiz, nur ustiga nurdir.",
+        "Tahoratli holda o'qisangiz, nur ustiga nurdir.",
         font=font(19),
         fill=GOLD,
         anchor="ma"
