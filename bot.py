@@ -75,82 +75,162 @@ def wrap_text(draw, text, fnt, max_width):
     return lines
 
 def make_hadith_card(h):
-    W, H = 1080, 1350
-    img = Image.new("RGB", (W, H), (7, 17, 24))
-    d = ImageDraw.Draw(img)
+    template = os.path.join(BASE, "premium_template.png")
 
-    # Premium dark Islamic/cosmic background.
-    for y in range(H):
-        t = y / H
-        c = (
-            int(6 + 8*t),
-            int(24 + 17*t),
-            int(28 + 18*t),
+    if os.path.exists(template):
+        img = Image.open(template).convert("RGB").resize(
+            (1080, 1350), Image.LANCZOS
         )
-        d.line((0, y, W, y), fill=c)
-    for cx, cy, r, fill in [
-        (120, 120, 210, (23, 93, 76)),
-        (930, 220, 250, (49, 34, 92)),
-        (860, 1120, 280, (17, 72, 67)),
-    ]:
-        d.ellipse((cx-r, cy-r, cx+r, cy+r), fill=fill)
+    else:
+        img = Image.new("RGB", (1080, 1350), (10, 36, 31))
 
-    # Stars / decorative dots.
-    seed = int(h.get("id", 1))
-    for i in range(70):
-        x = (seed * 37 + i * 97) % W
-        y = (seed * 53 + i * 61) % H
-        r = 1 + (i % 3)
-        d.ellipse((x-r, y-r, x+r, y+r), fill=(160, 213, 193))
-
-    # Glass panel.
-    panel = (55, 70, 76, 230)
-    overlay = Image.new("RGBA", (W-90, H-90), panel)
-    img.paste(overlay, (45, 45), overlay)
     d = ImageDraw.Draw(img)
 
-    white = (241, 247, 242)
-    mint = (125, 241, 201)
-    gold = (226, 193, 110)
-    muted = (188, 201, 201)
+    GOLD = (214, 169, 67)
+    DARK_GREEN = (8, 58, 48)
+    TEXT = (49, 54, 48)
+    MUTED = (78, 78, 70)
 
-    d.text((82, 82), "ENG ZARUR ILM", font=font(34, True), fill=mint)
-    d.text((82, 130), "ISLOMIY BILIM BOTI", font=font(21, True), fill=gold)
-    d.text((82, 205), "BUGUNGI HADIS", font=font(29, True), fill=white)
+    # Sarlavha
+    d.text(
+        (540, 218),
+        "BUGUNGI HADIS",
+        font=font(34, True),
+        fill=DARK_GREEN,
+        anchor="ma"
+    )
 
-    y = 275
-    text_lines = wrap_text(d, h.get("text", ""), font(32), 900)
-    # Keep cards readable even for long hadiths.
-    if len(text_lines) > 15:
-        text_lines = text_lines[:15]
-        text_lines[-1] += "…"
-    for line in text_lines:
-        d.text((82, y), line, font=font(32), fill=white)
-        y += 48
+    # Hadis matni
+    text = str(h.get("text", "")).strip()
 
+    size = 36
+
+    while size >= 24:
+        fnt = font(size)
+        lines = wrap_text(d, text, fnt, 830)
+
+        if len(lines) <= 11:
+            break
+
+        size -= 2
+
+    y = 300
+    line_gap = max(12, int(size * 0.35))
+
+    for line in lines[:11]:
+        d.text(
+            (540, y),
+            line,
+            font=fnt,
+            fill=TEXT,
+            anchor="ma"
+        )
+
+        y += size + line_gap
+
+    if len(lines) > 11:
+        d.text(
+            (540, y),
+            "…",
+            font=font(size, True),
+            fill=TEXT,
+            anchor="ma"
+        )
+
+    # Hadis ma'nosi
     meaning = str(h.get("meaning", "")).strip()
-    if meaning:
-        y += 25
-        d.rounded_rectangle((75, y-8, 1005, min(y+250, H-250)), radius=22,
-                            fill=(19, 44, 43), outline=(75, 133, 116), width=2)
-        d.text((100, y+15), "HADIS MA’NOSI", font=font(23, True), fill=gold)
-        my = y + 55
-        ml = wrap_text(d, meaning, font(24), 840)
-        for line in ml[:7]:
-            d.text((100, my), line, font=font(24), fill=(224, 235, 230))
-            my += 36
-        y = min(my + 25, H-250)
 
-    source = str(h.get("source", ""))
-    d.text((82, H-185), "📚 " + source[:110], font=font(20), fill=muted)
-    d.text((82, H-125), "Yaxshi odatlar — baxt kaliti", font=font(23, True), fill=mint)
-    d.text((W-210, H-125), f"#{h.get('id')}", font=font(22, True), fill=gold)
+    if meaning:
+
+        box_top = min(y + 20, 820)
+
+        d.rounded_rectangle(
+            (125, box_top, 955, min(box_top + 155, 930)),
+            radius=20,
+            fill=(245, 239, 225),
+            outline=(221, 190, 112),
+            width=2
+        )
+
+        d.text(
+            (540, box_top + 20),
+            "HADIS MA’NOSI",
+            font=font(23, True),
+            fill=DARK_GREEN,
+            anchor="ma"
+        )
+
+        meaning_font = font(21)
+
+        meaning_lines = wrap_text(
+            d,
+            meaning,
+            meaning_font,
+            720
+        )
+
+        my = box_top + 58
+
+        for line in meaning_lines[:4]:
+
+            d.text(
+                (540, my),
+                line,
+                font=meaning_font,
+                fill=MUTED,
+                anchor="ma"
+            )
+
+            my += 30
+
+    # Manba
+    source = str(h.get("source", "")).strip()
+
+    d.text(
+        (540, 955),
+        "📚 " + source[:100],
+        font=font(18, True),
+        fill=MUTED,
+        anchor="ma"
+    )
+
+    # Yangi footer
+    d.text(
+        (540, 1000),
+        "Hadis ilmini o‘rganishda niyatingiz to‘g‘ri bo‘lsin.",
+        font=font(20, True),
+        fill=DARK_GREEN,
+        anchor="ma"
+    )
+
+    d.text(
+        (540, 1030),
+        "Tahoratli holda o‘qisangiz, nur ustiga nurdir.",
+        font=font(19),
+        fill=GOLD,
+        anchor="ma"
+    )
+
+    # Hadis raqami
+    d.text(
+        (1015, 955),
+        f"#{h.get('id')}",
+        font=font(19, True),
+        fill=GOLD,
+        anchor="ra"
+    )
 
     out = io.BytesIO()
-    img.save(out, "PNG", optimize=True)
-    out.seek(0)
-    return out
 
+    img.save(
+        out,
+        "PNG",
+        optimize=True
+    )
+
+    out.seek(0)
+
+    return out
 def make_certificate(user_name, year, month, count):
     W, H = 1600, 1100
     img = Image.new("RGB", (W, H), (8, 20, 24))
@@ -427,7 +507,10 @@ async def start(update, context):
             pass
     await update.message.reply_text(
         "Assalomu alaykum! 🌙\n\n<b>ENG ZARUR ILM</b>\n"
-        "Har kuni hadis, ma’no va foydali odat.\n\n"
+        ""Har kuni hadis, ma’no va foydali odat.\n\n"
+"Hadis ilmini o‘rganishda niyatingiz to‘g‘ri bo‘lsin. "
+"Tahoratli holda o‘qisangiz, nur ustiga nurdir.\n\n"
+"O‘zingiz uchun rejimni tanlang:""
         "O‘zingiz uchun rejimni tanlang:",
         parse_mode="HTML",
         reply_markup=InlineKeyboardMarkup([[
